@@ -1,0 +1,392 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-12-19T10:00:00.000Z",
+  "config": {
+    "modules": {
+      "/dashboard": {
+        "path": "/dashboard",
+        "relatedLinks": [
+          {
+            "label": "Hotel Information",
+            "path": "/company-info/hotel-information",
+            "icon": "info",
+            "description": "Update basic hotel details and settings",
+            "category": "setup"
+          },
+          {
+            "label": "Default Settings",
+            "path": "/general/default-settings",
+            "icon": "settings",
+            "description": "Configure system-wide defaults",
+            "category": "setup"
+          },
+          {
+            "label": "Room Types & Rooms",
+            "path": "/rooms-manager/room-types",
+            "icon": "home",
+            "description": "Manage room inventory and types",
+            "category": "setup"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Quick Setup Wizard",
+            "path": "/general/default-settings",
+            "icon": "auto_fix_high",
+            "description": "Complete basic hotel setup in one place",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "View Reports",
+            "path": "/dashboard",
+            "icon": "analytics",
+            "description": "Access key performance metrics",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/rooms-manager/amenities": {
+        "path": "/rooms-manager/amenities",
+        "relatedLinks": [
+          {
+            "label": "Room Types & Rooms",
+            "path": "/rooms-manager/room-types",
+            "icon": "home",
+            "description": "Assign amenities to specific room types",
+            "category": "workflow"
+          },
+          {
+            "label": "Room Features",
+            "path": "/rooms-manager/room-features",
+            "icon": "tune",
+            "description": "Configure additional room features",
+            "category": "related"
+          },
+          {
+            "label": "Packages Master",
+            "path": "/price-manager/packages-master",
+            "icon": "card_giftcard",
+            "description": "Include amenities in packages",
+            "category": "workflow"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Set Up Room Inventory",
+            "path": "/rooms-manager/room-types",
+            "icon": "inventory",
+            "description": "After creating amenities, configure room types",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Add New Amenity",
+            "path": "/rooms-manager/amenities",
+            "icon": "add",
+            "description": "Create new amenity option",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/rooms-manager/room-types": {
+        "path": "/rooms-manager/room-types",
+        "relatedLinks": [
+          {
+            "label": "Amenities",
+            "path": "/rooms-manager/amenities",
+            "icon": "star",
+            "description": "Manage amenities for room types",
+            "category": "dependency"
+          },
+          {
+            "label": "Room Prices",
+            "path": "/price-manager/room-prices",
+            "icon": "attach_money",
+            "description": "Set pricing for room types",
+            "category": "workflow"
+          },
+          {
+            "label": "Room Taxes",
+            "path": "/rooms-manager/room-taxes",
+            "icon": "account_balance",
+            "description": "Configure tax settings for rooms",
+            "category": "related"
+          },
+          {
+            "label": "Display Colors",
+            "path": "/rooms-manager/display-colors",
+            "icon": "palette",
+            "description": "Set visual indicators for room status",
+            "category": "setup"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Configure Pricing",
+            "path": "/price-manager/room-prices",
+            "icon": "price_check",
+            "description": "Set up room rates after creating room types",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Add Room Type",
+            "path": "/rooms-manager/room-types",
+            "icon": "add",
+            "description": "Create new room type",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/pos-manager/pos-points": {
+        "path": "/pos-manager/pos-points",
+        "relatedLinks": [
+          {
+            "label": "POS Items",
+            "path": "/pos-manager/pos-items",
+            "icon": "inventory",
+            "description": "Manage items sold at POS points",
+            "category": "workflow"
+          },
+          {
+            "label": "POS Taxes",
+            "path": "/pos-manager/pos-taxes",
+            "icon": "receipt",
+            "description": "Configure tax settings for POS",
+            "category": "related"
+          },
+          {
+            "label": "Kitchen",
+            "path": "/pos-manager/kitchen",
+            "icon": "restaurant",
+            "description": "Link POS points to kitchen operations",
+            "category": "workflow"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Set Up POS Items",
+            "path": "/pos-manager/pos-items",
+            "icon": "store",
+            "description": "Add products for this POS point",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Add POS Point",
+            "path": "/pos-manager/pos-points",
+            "icon": "add",
+            "description": "Create new point of sale",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/guest-manager/guest-list": {
+        "path": "/guest-manager/guest-list",
+        "relatedLinks": [
+          {
+            "label": "Guest Preferences",
+            "path": "/guest-manager/guest-preferences",
+            "icon": "tune",
+            "description": "Manage individual guest preferences",
+            "category": "workflow"
+          },
+          {
+            "label": "Custom Fields",
+            "path": "/guest-manager/custom-fields",
+            "icon": "dynamic_form",
+            "description": "Capture additional guest information",
+            "category": "related"
+          },
+          {
+            "label": "VIP Guest List",
+            "path": "/guest-manager/vip-guest-list",
+            "icon": "star_border",
+            "description": "Promote guests to VIP status",
+            "category": "workflow"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Update Preferences",
+            "path": "/guest-manager/guest-preferences",
+            "icon": "edit",
+            "description": "Customize experience for returning guests",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Add Guest",
+            "path": "/guest-manager/guest-list",
+            "icon": "person_add",
+            "description": "Register new guest",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/general/default-settings": {
+        "path": "/general/default-settings",
+        "relatedLinks": [
+          {
+            "label": "Hotel Custom Settings",
+            "path": "/general/hotel-custom-settings",
+            "icon": "tune",
+            "description": "Override defaults with hotel-specific settings",
+            "category": "related"
+          },
+          {
+            "label": "Hotel Information",
+            "path": "/company-info/hotel-information",
+            "icon": "info",
+            "description": "Basic hotel details and information",
+            "category": "setup"
+          },
+          {
+            "label": "Currencies",
+            "path": "/general/currencies",
+            "icon": "attach_money",
+            "description": "Configure supported currencies",
+            "category": "dependency"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Complete Setup",
+            "path": "/company-info/hotel-information",
+            "icon": "task_alt",
+            "description": "Finish basic hotel configuration",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Update Settings",
+            "path": "/general/default-settings",
+            "icon": "edit",
+            "description": "Modify system defaults",
+            "category": "workflow"
+          }
+        ]
+      },
+      "/price-manager/room-prices": {
+        "path": "/price-manager/room-prices",
+        "relatedLinks": [
+          {
+            "label": "Room Types & Rooms",
+            "path": "/rooms-manager/room-types",
+            "icon": "home",
+            "description": "Pricing is set per room type",
+            "category": "dependency"
+          },
+          {
+            "label": "Seasons",
+            "path": "/price-manager/seasons",
+            "icon": "calendar_today",
+            "description": "Seasonal pricing adjustments",
+            "category": "related"
+          },
+          {
+            "label": "Room Taxes",
+            "path": "/rooms-manager/room-taxes",
+            "icon": "account_balance",
+            "description": "Taxes applied to room prices",
+            "category": "related"
+          }
+        ],
+        "workflowSuggestions": [
+          {
+            "label": "Set Up Seasonal Rates",
+            "path": "/price-manager/seasons",
+            "icon": "event_note",
+            "description": "Create seasonal pricing variations",
+            "category": "workflow"
+          }
+        ],
+        "quickActions": [
+          {
+            "label": "Update Prices",
+            "path": "/price-manager/room-prices",
+            "icon": "edit",
+            "description": "Modify room rate structure",
+            "category": "workflow"
+          }
+        ]
+      }
+    },
+    "globalQuickActions": [
+      {
+        "label": "Dashboard",
+        "path": "/dashboard",
+        "icon": "dashboard",
+        "description": "Return to main dashboard",
+        "category": "workflow"
+      },
+      {
+        "label": "Search Settings",
+        "path": "/general/default-settings",
+        "icon": "search",
+        "description": "Find configuration options",
+        "category": "workflow"
+      },
+      {
+        "label": "Hotel Information",
+        "path": "/company-info/hotel-information",
+        "icon": "info",
+        "description": "View hotel details",
+        "category": "workflow"
+      },
+      {
+        "label": "Backup & Restore",
+        "path": "/general/backup-restore",
+        "icon": "backup",
+        "description": "Backup or restore data",
+        "category": "workflow"
+      }
+    ],
+    "contextualHelp": {
+      "/dashboard": "Your main control center. Use related links to quickly access key setup areas or view operational data.",
+      "/rooms-manager": "Configure your hotel's physical layout and room inventory. Start with amenities and progress to room types.",
+      "/pos-manager": "Set up point-of-sale operations. Begin with POS points, then add items and configure taxes.",
+      "/guest-manager": "Manage guest information and preferences. Start with basic data like salutations, then build guest profiles.",
+      "/general": "System-wide settings and configurations. These affect all other modules - set up carefully.",
+      "/price-manager": "Revenue and pricing controls. Room prices depend on room types, while packages enhance value.",
+      "/company-info": "Basic hotel identity and information. Complete this before detailed configurations.",
+      "/users-manager": "User access and security. Create user levels first, then assign them to users.",
+      "/console": "Advanced integrations and corporate relationships for enterprise features."
+    }
+  },
+  "metadata": {
+    "totalModules": 8,
+    "totalRelatedLinks": 34,
+    "globalActions": 4,
+    "helpEntries": 9,
+    "categories": {
+      "setup": "Initial configuration required",
+      "workflow": "Natural next steps in user workflow",
+      "related": "Connected features and functionality",
+      "dependency": "Required prerequisite components"
+    },
+    "features": [
+      "Contextual navigation suggestions based on current module",
+      "Workflow-guided setup recommendations",
+      "Category-organized related links",
+      "Global quick access actions",
+      "Module-specific help text",
+      "Responsive floating action button widget",
+      "Local storage persistence",
+      "Route-aware content updates"
+    ],
+    "implementation": {
+      "framework": "Angular 17+ with Signals",
+      "materials": "Angular Material Design Components",
+      "storage": "Browser localStorage with versioning",
+      "patterns": "Service-Component architecture with dependency injection"
+    }
+  }
+}

@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalStorage Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1rem;
+        line-height: 1.6;
+      }
+      .test-section {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        margin: 0.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .success {
+        color: green;
+      }
+      .error {
+        color: red;
+      }
+      .info {
+        color: blue;
+      }
+      pre {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LocalStorage Test for Hotel Admin PWA</h1>
+
+    <div class="test-section">
+      <h2>Basic LocalStorage Test</h2>
+      <button onclick="testBasicStorage()">Test Basic Storage</button>
+      <button onclick="clearBasicStorage()">Clear Test Data</button>
+      <div id="basic-result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Hotel Admin Data Structure Test</h2>
+      <button onclick="testHotelDataStructure()">Create Hotel Data</button>
+      <button onclick="viewHotelData()">View Stored Data</button>
+      <button onclick="clearHotelData()">Clear Hotel Data</button>
+      <div id="hotel-result"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Storage Information</h2>
+      <button onclick="showStorageInfo()">Show Storage Info</button>
+      <div id="storage-info"></div>
+    </div>
+
+    <script>
+      const HOTEL_STORAGE_KEY = "hotel-admin-data";
+
+      function log(elementId, message, type = "info") {
+        const element = document.getElementById(elementId);
+        const className =
+          type === "success" ? "success" : type === "error" ? "error" : "info";
+        element.innerHTML += `<div class="${className}">${message}</div>`;
+        console.log(`[${type.toUpperCase()}] ${message}`);
+      }
+
+      function clearLog(elementId) {
+        document.getElementById(elementId).innerHTML = "";
+      }
+
+      function testBasicStorage() {
+        clearLog("basic-result");
+
+        try {
+          // Test if localStorage is available
+          if (typeof Storage === "undefined") {
+            log(
+              "basic-result",
+              "❌ LocalStorage is not supported in this browser",
+              "error",
+            );
+            return;
+          }
+
+          // Test writing and reading
+          const testKey = "test-key";
+          const testValue = { message: "Hello World", timestamp: Date.now() };
+
+          localStorage.setItem(testKey, JSON.stringify(testValue));
+          log(
+            "basic-result",
+            "✅ Test data written to localStorage",
+            "success",
+          );
+
+          const retrieved = JSON.parse(localStorage.getItem(testKey));
+          if (retrieved && retrieved.message === testValue.message) {
+            log(
+              "basic-result",
+              "✅ Test data successfully retrieved from localStorage",
+              "success",
+            );
+            log(
+              "basic-result",
+              `Retrieved: ${JSON.stringify(retrieved)}`,
+              "info",
+            );
+          } else {
+            log(
+              "basic-result",
+              "❌ Failed to retrieve correct data from localStorage",
+              "error",
+            );
+          }
+        } catch (error) {
+          log(
+            "basic-result",
+            `❌ LocalStorage test failed: ${error.message}`,
+            "error",
+          );
+        }
+      }
+
+      function clearBasicStorage() {
+        localStorage.removeItem("test-key");
+        clearLog("basic-result");
+        log("basic-result", "🗑️ Basic test data cleared", "info");
+      }
+
+      function testHotelDataStructure() {
+        clearLog("hotel-result");
+
+        try {
+          const hotelData = {
+            hotel: {
+              id: 1,
+              compid: 1,
+              hotelname: "Test Hotel Resort",
+              description: "A beautiful test hotel for localStorage testing",
+              status: "active",
+              createdby: 1,
+              modifiedby: 1,
+            },
+            roomTypes: [
+              {
+                id: 1,
+                name: "Standard Room",
+                description: "Comfortable standard room",
+                maxOccupancy: 2,
+              },
+              {
+                id: 2,
+                name: "Deluxe Suite",
+                description: "Luxurious deluxe suite",
+                maxOccupancy: 4,
+              },
+            ],
+            rooms: [
+              {
+                id: 1,
+                roomNumber: "101",
+                roomTypeId: 1,
+                status: "available",
+              },
+              {
+                id: 2,
+                roomNumber: "201",
+                roomTypeId: 2,
+                status: "available",
+              },
+            ],
+            amenities: [
+              {
+                id: 1,
+                hotelid: 1,
+                title: "Free WiFi",
+                shortname: "wifi",
+                description: "High-speed internet access",
+                status: "active",
+                createdby: 1,
+                modifiedby: 1,
+              },
+              {
+                id: 2,
+                hotelid: 1,
+                title: "Swimming Pool",
+                shortname: "pool",
+                description: "Outdoor swimming pool",
+                status: "active",
+                createdby: 1,
+                modifiedby: 1,
+              },
+            ],
+            taxes: [],
+            policies: {
+              cancellation: [],
+              booking: [],
+            },
+            users: [],
+            lastModified: new Date().toISOString(),
+            version: "1.0.0",
+          };
+
+          localStorage.setItem(HOTEL_STORAGE_KEY, JSON.stringify(hotelData));
+          log(
+            "hotel-result",
+            "✅ Hotel data structure created and stored successfully",
+            "success",
+          );
+          log(
+            "hotel-result",
+            `📊 Data size: ${new Blob([JSON.stringify(hotelData)]).size} bytes`,
+            "info",
+          );
+          log("hotel-result", `🏨 Hotel: ${hotelData.hotel.hotelname}`, "info");
+          log(
+            "hotel-result",
+            `🏠 Room Types: ${hotelData.roomTypes.length}`,
+            "info",
+          );
+          log("hotel-result", `🛏️ Rooms: ${hotelData.rooms.length}`, "info");
+          log(
+            "hotel-result",
+            `🎯 Amenities: ${hotelData.amenities.length}`,
+            "info",
+          );
+        } catch (error) {
+          log(
+            "hotel-result",
+            `❌ Failed to create hotel data: ${error.message}`,
+            "error",
+          );
+        }
+      }
+
+      function viewHotelData() {
+        clearLog("hotel-result");
+
+        try {
+          const stored = localStorage.getItem(HOTEL_STORAGE_KEY);
+          if (!stored) {
+            log(
+              "hotel-result",
+              "❌ No hotel data found in localStorage",
+              "error",
+            );
+            return;
+          }
+
+          const data = JSON.parse(stored);
+          log("hotel-result", "✅ Hotel data found in localStorage", "success");
+          log(
+            "hotel-result",
+            "<pre>" + JSON.stringify(data, null, 2) + "</pre>",
+            "info",
+          );
+        } catch (error) {
+          log(
+            "hotel-result",
+            `❌ Failed to retrieve hotel data: ${error.message}`,
+            "error",
+          );
+        }
+      }
+
+      function clearHotelData() {
+        localStorage.removeItem(HOTEL_STORAGE_KEY);
+        clearLog("hotel-result");
+        log("hotel-result", "🗑️ Hotel data cleared from localStorage", "info");
+      }
+
+      function showStorageInfo() {
+        clearLog("storage-info");
+
+        try {
+          log("storage-info", "📋 LocalStorage Information:", "info");
+          log(
+            "storage-info",
+            `🔧 LocalStorage supported: ${typeof Storage !== "undefined"}`,
+            "info",
+          );
+          log(
+            "storage-info",
+            `📊 Total items in localStorage: ${localStorage.length}`,
+            "info",
+          );
+
+          let totalSize = 0;
+          const items = [];
+
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            const size = new Blob([value]).size;
+            totalSize += size;
+            items.push({ key, size });
+          }
+
+          log(
+            "storage-info",
+            `💾 Total storage used: ${totalSize} bytes (${(totalSize / 1024).toFixed(2)} KB)`,
+            "info",
+          );
+
+          if (items.length > 0) {
+            log("storage-info", "📝 Stored items:", "info");
+            items.forEach((item) => {
+              log(
+                "storage-info",
+                `  • ${item.key}: ${item.size} bytes`,
+                "info",
+              );
+            });
+          }
+
+          // Check specifically for hotel data
+          const hotelData = localStorage.getItem(HOTEL_STORAGE_KEY);
+          if (hotelData) {
+            log(
+              "storage-info",
+              `🏨 Hotel data found: ${new Blob([hotelData]).size} bytes`,
+              "success",
+            );
+          } else {
+            log("storage-info", "🏨 No hotel data found", "info");
+          }
+        } catch (error) {
+          log(
+            "storage-info",
+            `❌ Failed to get storage info: ${error.message}`,
+            "error",
+          );
+        }
+      }
+
+      // Auto-run basic storage info on load
+      window.addEventListener("load", () => {
+        showStorageInfo();
+      });
+    </script>
+  </body>
+</html>

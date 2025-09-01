@@ -1,0 +1,64 @@
+// Compact form styling for Material 3
+.compact-card {
+  .mat-mdc-card-header {
+    padding: 8px 12px 4px 12px;
+  }
+
+  .mat-mdc-card-content {
+    padding: 0 12px 4px 12px;
+  }
+
+  .mat-mdc-card-actions {
+    padding: 4px 12px 8px 12px;
+    min-height: auto;
+  }
+}
+
+.compact-field {
+  .mdc-text-field--filled {
+    height: 40px;
+  }
+
+  .mdc-text-field--filled .mdc-floating-label {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .mdc-text-field--filled .mdc-text-field__input {
+    font-size: 12px;
+    line-height: 1.2;
+    padding-top: 16px;
+    padding-bottom: 8px;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    margin-top: 2px;
+  }
+}
+
+// Make Material 3 form fields more compact
+:host ::ng-deep {
+  .compact-field .mdc-text-field--filled {
+    height: 40px !important;
+  }
+
+  .compact-field .mdc-text-field--filled .mdc-line-ripple::before,
+  .compact-field .mdc-text-field--filled .mdc-line-ripple::after {
+    border-bottom-width: 1px;
+  }
+
+  .compact-field .mdc-text-field--filled .mdc-text-field__input {
+    padding-top: 14px !important;
+    padding-bottom: 6px !important;
+    font-size: 12px !important;
+  }
+
+  .compact-field .mdc-floating-label {
+    font-size: 11px !important;
+    top: 14px !important;
+  }
+
+  .compact-field .mdc-floating-label--float-above {
+    transform: translateY(-50%) scale(0.85) !important;
+  }
+}

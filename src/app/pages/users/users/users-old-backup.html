@@ -1,0 +1,553 @@
+<div class="max-w-7xl mx-auto h-full">
+  <div class="mb-4">
+    <h1 class="text-xl font-bold text-gray-900 mb-1">User Manager</h1>
+    <p class="text-sm text-gray-600">Manage user accounts and permissions</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Main Users List Card -->
+    <div>
+      <mat-card class="flex flex-col">
+        <mat-card-header class="flex-shrink-0 !pb-2">
+          <div
+            class="flex items-center justify-between w-full text-sm font-medium"
+          >
+            <div class="flex items-center">
+              <mat-icon class="mr-2 text-blue-600 !text-lg">people</mat-icon>
+              Users List
+            </div>
+            <div class="flex items-center space-x-2">
+              <!-- Action Buttons -->
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="showAddForm.set(true)"
+                class="!text-xs !font-medium !min-h-8 !px-3"
+              >
+                <mat-icon class="mr-1 !text-sm">add</mat-icon>
+                ADD A NEW USER
+              </button>
+              <button
+                mat-raised-button
+                color="accent"
+                [disabled]="selectedUsers().size === 0"
+                class="!text-xs !font-medium !min-h-8 !px-3"
+              >
+                <mat-icon class="mr-1 !text-sm">split_scene</mat-icon>
+                SPLIT SELECTED USERS
+              </button>
+              <button
+                mat-button
+                (click)="cancelSelection()"
+                class="!text-xs !min-h-8 !px-3"
+              >
+                <mat-icon class="mr-1 !text-sm">cancel</mat-icon>
+                CANCEL
+              </button>
+            </div>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content class="flex-1 !pt-0 !pb-2">
+          <!-- Search and Filter Bar -->
+          <div
+            class="flex items-center justify-between mb-4 p-3 bg-gray-50 rounded-lg"
+          >
+            <div class="flex items-center space-x-3">
+              <mat-form-field
+                appearance="outline"
+                class="!w-64"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Search User</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="searchTerm"
+                  placeholder="Enter user name or email"
+                  class="!text-sm"
+                />
+                <mat-icon matSuffix class="!text-lg">search</mat-icon>
+              </mat-form-field>
+              <button
+                mat-raised-button
+                (click)="searchUsers()"
+                class="!text-xs !font-medium !min-h-8 !px-4"
+              >
+                Search
+              </button>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-gray-600">Filter:</span>
+              <mat-form-field
+                appearance="outline"
+                class="!w-32"
+                subscriptSizing="dynamic"
+              >
+                <mat-select [(ngModel)]="selectedFilter" class="!text-sm">
+                  <mat-option value="all">All User Type</mat-option>
+                  <mat-option value="admin">Admin</mat-option>
+                  <mat-option value="manager">Manager</mat-option>
+                  <mat-option value="staff">Staff</mat-option>
+                  <mat-option value="guest">Guest</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Users Table -->
+          @if (filteredUsers().length === 0) {
+            <div class="text-center py-8 text-gray-500">
+              <mat-icon class="text-4xl mb-2 opacity-50">people</mat-icon>
+              <p class="text-sm">No users found</p>
+              <p class="text-xs">
+                Add your first user or adjust your search criteria
+              </p>
+            </div>
+          } @else {
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="border border-gray-300 px-2 py-2 text-left">
+                      <mat-checkbox
+                        [checked]="isAllSelected()"
+                        [indeterminate]="isIndeterminate()"
+                        (change)="toggleAll()"
+                        class="!scale-75"
+                      ></mat-checkbox>
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-left text-xs font-semibold"
+                    >
+                      #id
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-left text-xs font-semibold"
+                    >
+                      Name
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-left text-xs font-semibold"
+                    >
+                      Email
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-left text-xs font-semibold"
+                    >
+                      Work Areas/POS Points
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-left text-xs font-semibold"
+                    >
+                      User Type
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-center text-xs font-semibold"
+                    >
+                      Action
+                    </th>
+                    <th
+                      class="border border-gray-300 px-3 py-2 text-center text-xs font-semibold"
+                    >
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (
+                    user of filteredUsers();
+                    track user.id;
+                    let i = $index
+                  ) {
+                    <tr class="hover:bg-gray-50">
+                      <td class="border border-gray-300 px-2 py-2">
+                        <mat-checkbox
+                          [checked]="isUserSelected(user.id)"
+                          (change)="toggleUser(user.id)"
+                          class="!scale-75"
+                        ></mat-checkbox>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2 text-xs">
+                        {{ i + 1 }}
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2">
+                        <div class="text-sm font-medium text-blue-600">
+                          {{ user.firstName }} {{ user.lastName }}
+                        </div>
+                        <div class="text-xs text-gray-500">
+                          {{ user.username }}
+                        </div>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2 text-sm">
+                        {{ user.email }}
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2">
+                        <div class="text-xs text-gray-600 leading-tight">
+                          @if (user.workAreas && user.workAreas.length > 0) {
+                            @for (area of user.workAreas; track area) {
+                              <div>{{ area }}</div>
+                            }
+                          } @else {
+                            <div class="text-gray-400">
+                              No work areas assigned
+                            </div>
+                          }
+                        </div>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2 text-center">
+                        <span
+                          class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800"
+                        >
+                          {{ getUserType(user) }}
+                        </span>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2 text-center">
+                        <button
+                          mat-button
+                          color="primary"
+                          (click)="editUser(user)"
+                          class="!text-xs !min-h-6 !px-2"
+                        >
+                          Edit
+                        </button>
+                      </td>
+                      <td class="border border-gray-300 px-3 py-2 text-center">
+                        <mat-icon
+                          [class]="getStatusIconClass(user.status)"
+                          class="!text-lg"
+                          [matTooltip]="getStatusText(user.status)"
+                        >
+                          {{ getStatusIcon(user.status) }}
+                        </mat-icon>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between mt-4 px-2">
+              <div class="text-sm text-gray-600">
+                Page:
+                <mat-form-field
+                  appearance="outline"
+                  class="!w-16 !ml-1"
+                  subscriptSizing="dynamic"
+                >
+                  <mat-select [(ngModel)]="currentPage" class="!text-sm">
+                    @for (page of getPageNumbers(); track page) {
+                      <mat-option [value]="page">{{ page }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+                of {{ getTotalPages() }}
+              </div>
+              <div class="text-sm text-gray-600">
+                View:
+                <mat-form-field
+                  appearance="outline"
+                  class="!w-16 !ml-1"
+                  subscriptSizing="dynamic"
+                >
+                  <mat-select [(ngModel)]="itemsPerPage" class="!text-sm">
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                    <mat-option [value]="100">100</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                records per page
+              </div>
+              <div class="flex items-center space-x-2">
+                <button
+                  mat-icon-button
+                  [disabled]="currentPage() === 1"
+                  (click)="previousPage()"
+                  class="!w-8 !h-8"
+                >
+                  <mat-icon class="!text-lg">chevron_left</mat-icon>
+                </button>
+                <span class="text-sm">Previous</span>
+                <span class="text-sm">|</span>
+                <span class="text-sm">Next</span>
+                <button
+                  mat-icon-button
+                  [disabled]="currentPage() === getTotalPages()"
+                  (click)="nextPage()"
+                  class="!w-8 !h-8"
+                >
+                  <mat-icon class="!text-lg">chevron_right</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Add/Edit User Form -->
+    @if (showAddForm() || editing()) {
+      <div>
+        <mat-card class="flex flex-col compact-card">
+          <mat-card-header class="flex-shrink-0 !pb-1 !pt-2">
+            <mat-card-title
+              class="flex items-center justify-between w-full text-sm font-medium"
+            >
+              <div class="flex items-center">
+                <mat-icon class="mr-2 text-blue-600 !text-lg">
+                  {{ editing() ? "edit" : "person_add" }}
+                </mat-icon>
+                {{ editing() ? "Edit User" : "Add New User" }}
+              </div>
+              <button mat-icon-button (click)="closeForm()" class="!w-8 !h-8">
+                <mat-icon class="!text-lg">close</mat-icon>
+              </button>
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="flex-1 !pt-0 !pb-1 overflow-y-auto max-h-80">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-2">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Personal Information -->
+                <div class="space-y-2">
+                  <h3 class="text-sm font-medium text-gray-700 mb-2">
+                    Personal Information
+                  </h3>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Username</mat-label>
+                    <input
+                      matInput
+                      formControlName="username"
+                      placeholder="e.g., jdoe"
+                      class="!text-sm"
+                    />
+                    <mat-icon matSuffix class="!text-base"
+                      >account_circle</mat-icon
+                    >
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('username')?.hasError('required')"
+                    >
+                      Username is required
+                    </mat-error>
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('username')?.hasError('duplicate')"
+                    >
+                      Username must be unique
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>First Name</mat-label>
+                    <input
+                      matInput
+                      formControlName="firstName"
+                      placeholder="e.g., John"
+                      class="!text-sm"
+                    />
+                    <mat-icon matSuffix class="!text-base">person</mat-icon>
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('firstName')?.hasError('required')"
+                    >
+                      First name is required
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Last Name</mat-label>
+                    <input
+                      matInput
+                      formControlName="lastName"
+                      placeholder="e.g., Doe"
+                      class="!text-sm"
+                    />
+                    <mat-icon matSuffix class="!text-base"
+                      >person_outline</mat-icon
+                    >
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('lastName')?.hasError('required')"
+                    >
+                      Last name is required
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Email Address</mat-label>
+                    <input
+                      matInput
+                      formControlName="email"
+                      type="email"
+                      placeholder="e.g., john@example.com"
+                      class="!text-sm"
+                    />
+                    <mat-icon matSuffix class="!text-base">email</mat-icon>
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('email')?.hasError('required')"
+                    >
+                      Email is required
+                    </mat-error>
+                    <mat-error
+                      class="!text-xs"
+                      *ngIf="form.get('email')?.hasError('email')"
+                    >
+                      Enter a valid email address
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Role and Work Areas -->
+                <div class="space-y-2">
+                  <h3 class="text-sm font-medium text-gray-700 mb-2">
+                    Role & Access
+                  </h3>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>User Type</mat-label>
+                    <mat-select formControlName="userType" class="!text-sm">
+                      <mat-option value="FO Executive">FO Executive</mat-option>
+                      <mat-option value="PO Executive">PO Executive</mat-option>
+                      <mat-option value="HR Executive">HR Executive</mat-option>
+                      <mat-option value="Manager">Manager</mat-option>
+                      <mat-option value="Admin">Admin</mat-option>
+                      <mat-option value="Support Lead">Support Lead</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix class="!text-base">security</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="departmentId" class="!text-sm">
+                      @for (d of departments(); track d.id) {
+                        <mat-option [value]="d.id">{{ d.name }}</mat-option>
+                      }
+                    </mat-select>
+                    <mat-icon matSuffix class="!text-base">apartment</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Work Areas</mat-label>
+                    <mat-select
+                      formControlName="workAreas"
+                      multiple
+                      class="!text-sm"
+                    >
+                      <mat-option value="Frontdesk">Frontdesk</mat-option>
+                      <mat-option value="Housekeeping">Housekeeping</mat-option>
+                      <mat-option value="Admin Console"
+                        >Admin Console</mat-option
+                      >
+                      <mat-option value="Report Console"
+                        >Report Console</mat-option
+                      >
+                      <mat-option value="Night Audit Console"
+                        >Night Audit Console</mat-option
+                      >
+                      <mat-option value="Advance Posting"
+                        >Advance Posting</mat-option
+                      >
+                      <mat-option value="Accounts">Accounts</mat-option>
+                      <mat-option value="Restaurant">Restaurant</mat-option>
+                      <mat-option value="Bar">Bar</mat-option>
+                      <mat-option value="Travel Desk">Travel Desk</mat-option>
+                      <mat-option value="My User Lounge"
+                        >My User Lounge</mat-option
+                      >
+                    </mat-select>
+                    <mat-icon matSuffix class="!text-base">work</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-full compact-field"
+                    subscriptSizing="dynamic"
+                  >
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status" class="!text-sm">
+                      <mat-option value="active">Active</mat-option>
+                      <mat-option value="inactive">Inactive</mat-option>
+                      <mat-option value="deleted">Deleted</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix class="!text-base">info</mat-icon>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+
+          <mat-card-actions class="flex-shrink-0 !px-3 !pb-3 !pt-1">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onSubmit()"
+              [disabled]="form.invalid || saving()"
+              class="!text-sm !font-medium !min-h-8 !px-4"
+            >
+              @if (saving()) {
+                <mat-icon class="animate-spin mr-1 !text-base"
+                  >refresh</mat-icon
+                >
+              } @else {
+                <mat-icon class="mr-1 !text-base">{{
+                  editing() ? "update" : "add"
+                }}</mat-icon>
+              }
+              {{ editing() ? "Update User" : "Add User" }}
+            </button>
+
+            <button
+              mat-button
+              (click)="closeForm()"
+              type="button"
+              class="!text-sm !min-h-8 !px-3"
+            >
+              Cancel
+            </button>
+
+            <button
+              mat-button
+              (click)="resetForm()"
+              type="button"
+              class="!text-sm !min-h-8 !px-3"
+            >
+              Reset
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    }
+  </div>
+</div>

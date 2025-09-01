@@ -1,0 +1,82 @@
+<div class="card-constrained w-full max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="mb-6 text-center">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Departments</h1>
+    <p class="text-gray-600">Create and manage departments</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Form -->
+    <div class="lg:col-span-1">
+      <mat-card class="mx-auto">
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Code</mat-label>
+              <input matInput formControlName="code" />
+              <mat-error *ngIf="form.get('code')?.hasError('required')">Code is required</mat-error>
+              <mat-error *ngIf="form.get('code')?.hasError('duplicate')">Department code must be unique</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" rows="3"></textarea>
+            </mat-form-field>
+
+            <div class="flex gap-2">
+              <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || saving()">
+                <mat-icon class="mr-2">{{ editing() ? 'update' : 'add' }}</mat-icon>
+                {{ editing() ? 'Update Department' : 'Add Department' }}
+              </button>
+              <button mat-button type="button" (click)="editing() ? cancelEdit() : form.reset()">
+                {{ editing() ? 'Cancel' : 'Reset' }}
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- List -->
+    <div class="lg:col-span-2">
+      <mat-card class="mx-auto">
+        <mat-card-content>
+          @if (departments().length === 0) {
+            <div class="text-center py-8 text-gray-500">
+              <mat-icon class="text-4xl mb-2 opacity-50">apartment</mat-icon>
+              <p>No departments configured yet</p>
+            </div>
+          } @else {
+            <table mat-table [dataSource]="departments()" class="w-full" aria-label="Departments table">
+              <ng-container matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef class="font-semibold">Code</th>
+                <td mat-cell *matCellDef="let d">{{ d.code }}</td>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class="font-semibold">Name</th>
+                <td mat-cell *matCellDef="let d">{{ d.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="font-semibold">Actions</th>
+                <td mat-cell *matCellDef="let d">
+                  <button mat-icon-button color="primary" (click)="editDepartment(d)" [attr.aria-label]="'Edit department ' + d.name " type="button">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteDepartment(d.id)" [attr.aria-label]="'Delete department ' + d.name " type="button">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,327 @@
+<div class="max-w-7xl mx-auto h-full">
+  <div class="mb-4">
+    <h1 class="text-xl font-bold text-gray-900 mb-1">Rate Plans</h1>
+    <p class="text-sm text-gray-600">Create and manage rate plans</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Form Card -->
+    <div>
+      <mat-card class="flex flex-col">
+        <mat-card-header class="flex-shrink-0 !pb-2">
+          <mat-card-title class="flex items-center text-sm font-medium">
+            <mat-icon class="mr-2 text-blue-600 !text-lg"
+              >price_change</mat-icon
+            >
+            {{ editing() ? "Edit Rate Plan" : "Add Rate Plan" }}
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="flex-1 !pt-0 !pb-2 overflow-y-auto max-h-96">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-2">
+            <mat-form-field
+              appearance="fill"
+              class="w-full !text-sm"
+              subscriptSizing="dynamic"
+            >
+              <mat-label class="!text-sm">Code</mat-label>
+              <input
+                matInput
+                formControlName="code"
+                placeholder="e.g., BAR"
+                class="!text-sm !py-1"
+                style="line-height: 1.2"
+              />
+              <mat-icon matSuffix class="!text-base">code</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              class="w-full !text-sm"
+              subscriptSizing="dynamic"
+            >
+              <mat-label class="!text-sm">Name</mat-label>
+              <input
+                matInput
+                formControlName="shortName"
+                placeholder="Best Available Rate"
+                class="!text-sm !py-1"
+                style="line-height: 1.2"
+              />
+              <mat-icon matSuffix class="!text-base">label</mat-icon>
+            </mat-form-field>
+
+            <!-- Rates FormArray -->
+            <div formArrayName="rates" class="space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold text-gray-700">
+                  Room Type Rates
+                </h3>
+                <button
+                  mat-stroked-button
+                  type="button"
+                  (click)="addRate()"
+                  class="!text-sm !min-h-9"
+                >
+                  <mat-icon class="mr-1 !text-base">add</mat-icon>
+                  Add Rate
+                </button>
+              </div>
+
+              @for (group of ratesFA.controls; track $index; let i = $index) {
+                <div [formGroupName]="i" class="border rounded p-3 space-y-2">
+                  <div class="grid grid-cols-1 gap-2">
+                    <mat-form-field
+                      appearance="fill"
+                      class="w-full !text-sm"
+                      subscriptSizing="dynamic"
+                    >
+                      <mat-label class="!text-sm">Room Type</mat-label>
+                      <mat-select formControlName="roomTypeId">
+                        @for (rt of roomTypes(); track rt.id) {
+                          <mat-option [value]="rt.id">{{ rt.name }}</mat-option>
+                        }
+                      </mat-select>
+                      <mat-icon matSuffix class="!text-base">hotel</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <mat-form-field
+                      appearance="fill"
+                      class="w-full !text-sm"
+                      subscriptSizing="dynamic"
+                    >
+                      <mat-label class="!text-sm">Base Rate</mat-label>
+                      <input
+                        type="number"
+                        matInput
+                        formControlName="baseRate"
+                        class="!text-sm !py-1"
+                        style="line-height: 1.2"
+                      />
+                      <mat-icon matSuffix class="!text-base"
+                        >attach_money</mat-icon
+                      >
+                    </mat-form-field>
+                    <mat-form-field
+                      appearance="fill"
+                      class="w-full !text-sm"
+                      subscriptSizing="dynamic"
+                    >
+                      <mat-label class="!text-sm">Currency</mat-label>
+                      <input
+                        matInput
+                        formControlName="currency"
+                        class="!text-sm !py-1"
+                        style="line-height: 1.2"
+                      />
+                      <mat-icon matSuffix class="!text-base"
+                        >monetization_on</mat-icon
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="flex justify-end">
+                    <button
+                      mat-button
+                      color="warn"
+                      type="button"
+                      (click)="removeRate(i)"
+                      [disabled]="ratesFA.length === 1"
+                      class="!text-sm !min-h-9"
+                    >
+                      <mat-icon class="mr-1 !text-base">remove_circle</mat-icon>
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <mat-checkbox formControlName="taxInclusive" class="!text-sm"
+              >Tax Inclusive</mat-checkbox
+            >
+
+            <mat-form-field
+              appearance="fill"
+              class="w-full !text-sm"
+              subscriptSizing="dynamic"
+            >
+              <mat-label class="!text-sm">Taxes</mat-label>
+              <mat-select formControlName="applicableTaxIds" multiple>
+                <mat-select-trigger>
+                  {{ form.value.applicableTaxIds?.length || 0 }} selected
+                </mat-select-trigger>
+                @for (t of taxes(); track t.id) {
+                  <mat-option [value]="t.id">{{ t.name }}</mat-option>
+                }
+              </mat-select>
+              <button
+                mat-icon-button
+                matSuffix
+                routerLink="/taxes"
+                type="button"
+                aria-label="Manage taxes"
+                class="!w-6 !h-6"
+              >
+                <mat-icon class="!text-base">open_in_new</mat-icon>
+              </button>
+              <mat-icon matSuffix class="!text-base">gavel</mat-icon>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+
+        <mat-card-actions class="flex-shrink-0 !px-3 !pb-3 !pt-1">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid || saving()"
+            class="!text-sm !font-medium !min-h-9 !px-4"
+            (click)="onSubmit()"
+          >
+            <mat-icon class="mr-1 !text-base">{{
+              editing() ? "update" : "add"
+            }}</mat-icon>
+            {{ editing() ? "Update Rate Plan" : "Add Rate Plan" }}
+          </button>
+          <button
+            mat-button
+            type="button"
+            (click)="editing() ? cancelEdit() : resetForm()"
+            class="!text-sm !min-h-9"
+          >
+            {{ editing() ? "Cancel" : "Reset" }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <!-- Table Card -->
+    <div>
+      <mat-card class="flex flex-col">
+        <mat-card-header class="flex-shrink-0 !pb-2">
+          <mat-card-title
+            class="flex items-center justify-between w-full text-sm font-medium"
+          >
+            <div class="flex items-center">
+              <mat-icon class="mr-2 text-green-600 !text-lg">list</mat-icon>
+              Rate Plans List
+              <span
+                class="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full font-medium"
+              >
+                {{ ratePlans().length }}
+              </span>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="flex-1 !pt-0 !pb-2 overflow-y-auto min-h-64">
+          @if (ratePlans().length === 0) {
+            <div class="text-center py-6 text-gray-500">
+              <mat-icon class="text-3xl mb-2 opacity-50">price_change</mat-icon>
+              <p class="text-sm">No rate plans configured yet</p>
+              <p class="text-xs">Add your first rate plan using the form</p>
+            </div>
+          } @else {
+            <div class="overflow-x-auto">
+              <table
+                mat-table
+                [dataSource]="ratePlans()"
+                class="w-full !text-sm"
+                aria-label="Rate plans table"
+              >
+                <ng-container matColumnDef="code">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="font-semibold !text-sm"
+                  >
+                    Code
+                  </th>
+                  <td mat-cell *matCellDef="let r" class="!py-2">
+                    <div class="font-medium text-sm">{{ r.code }}</div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="font-semibold !text-sm"
+                  >
+                    Name
+                  </th>
+                  <td mat-cell *matCellDef="let r" class="!py-2">
+                    <div class="font-medium text-sm">{{ r.name }}</div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="roomTypes">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="font-semibold !text-sm"
+                  >
+                    Room Types
+                  </th>
+                  <td mat-cell *matCellDef="let r" class="!py-2">
+                    <div class="text-sm">{{ roomTypesFor(r) }}</div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="taxes">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="font-semibold !text-sm"
+                  >
+                    Taxes
+                  </th>
+                  <td mat-cell *matCellDef="let r" class="!py-2">
+                    <div class="text-sm">{{ taxesFor(r) }}</div>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    class="font-semibold !text-sm"
+                  >
+                    Actions
+                  </th>
+                  <td mat-cell *matCellDef="let r" class="!py-2">
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      (click)="editRatePlan(r)"
+                      matTooltip="Edit rate plan"
+                      class="!w-8 !h-8"
+                    >
+                      <mat-icon class="!text-lg">edit</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="deleteRatePlan(r.id)"
+                      matTooltip="Delete rate plan"
+                      class="!w-8 !h-8"
+                    >
+                      <mat-icon class="!text-lg">delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                  class="!h-10"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  class="!h-12"
+                ></tr>
+              </table>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

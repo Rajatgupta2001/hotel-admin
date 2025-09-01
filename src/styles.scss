@@ -1,0 +1,2562 @@
+/* Material Design 3 Color Tokens */
+:root {
+  /* Primary colors */
+  --md-sys-color-primary: #1976d2;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d0e4ff;
+  --md-sys-color-on-primary-container: #001d35;
+
+  /* Secondary colors */
+  --md-sys-color-secondary: #555f71;
+  --md-sys-color-on-secondary: #ffffff;
+
+  /* Success, warning, error colors for PWA */
+  --md-sys-color-success: #4caf50;
+  --md-sys-color-warning: #ff9800;
+  --md-sys-color-info: #2196f3;
+  --md-sys-color-secondary-container: #d9e2f8;
+  --md-sys-color-on-secondary-container: #121c2b;
+
+  /* Tertiary colors */
+  --md-sys-color-tertiary: #6b5778;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f2daff;
+  --md-sys-color-on-tertiary-container: #251432;
+
+  /* Error colors */
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  /* Surface colors */
+  --md-sys-color-surface: #fdfcff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-surface-variant: #e1e2ec;
+  --md-sys-color-on-surface-variant: #44474f;
+  --md-sys-color-surface-container-highest: #e6e1e5;
+  --md-sys-color-surface-container-high: #ece6ea;
+  --md-sys-color-surface-container: #f3edf1;
+  --md-sys-color-surface-container-low: #f9f2f7;
+  --md-sys-color-surface-container-lowest: #ffffff;
+
+  /* Outline colors */
+  --md-sys-color-outline: #74777f;
+  --md-sys-color-outline-variant: #c4c7cf;
+
+  /* Inverse colors */
+  --md-sys-color-inverse-surface: #2f3033;
+  --md-sys-color-inverse-on-surface: #f1f0f4;
+  --md-sys-color-inverse-primary: #9ecaff;
+
+  /* Elevation shadows */
+  --md-sys-elevation-shadow-level1: 0px 1px 3px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-shadow-level2:
+    0px 1px 5px rgba(0, 0, 0, 0.14), 0px 2px 2px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-shadow-level3:
+    0px 1px 8px rgba(0, 0, 0, 0.14), 0px 3px 4px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-shadow-level4:
+    0px 2px 4px rgba(0, 0, 0, 0.14), 0px 4px 5px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-shadow-level5:
+    0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Angular Material 3 Theme */
+@import "@angular/material/prebuilt-themes/azure-blue.css";
+
+/* AG Grid Theme - Material Design Integration */
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-material.css";
+
+/* Global Extra Small Font Size Settings - IMPROVED */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  /* Improved base font size for better readability */
+  font-size: 14px;
+  line-height: 1.5;
+  /* Allow vertical scrolling app-wide */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface);
+}
+
+/* ENHANCED TYPOGRAPHY SYSTEM */
+h1,
+.mat-headline-4 {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.25px !important;
+  margin: 0 0 12px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+h2,
+.mat-headline-5 {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.15px !important;
+  margin: 0 0 10px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+h3,
+.mat-headline-6,
+.mat-subtitle-1 {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.15px !important;
+  margin: 0 0 8px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+h4,
+.mat-subtitle-2 {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.1px !important;
+  margin: 0 0 6px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-body,
+.mat-body-1,
+.mat-typography .mat-body-1 {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.25px !important;
+  margin: 0 0 4px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-body-strong,
+.mat-body-2,
+.mat-typography .mat-body-2 {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.25px !important;
+  margin: 0 0 4px 0 !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.mat-small,
+.mat-caption,
+.mat-typography .mat-caption {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.4px !important;
+  margin: 0 !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Override Material Design component font sizes to extra small */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-stroked-button,
+.mat-mdc-flat-button,
+.mat-mdc-icon-button {
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  height: 28px !important;
+  min-height: 28px !important;
+}
+
+.mat-mdc-form-field {
+  font-size: 10px !important;
+  margin-bottom: 4px !important;
+}
+
+.mat-mdc-input-element,
+.mat-mdc-select-value,
+.mat-mdc-option {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+}
+
+.mat-mdc-select-panel {
+  font-size: 10px !important;
+}
+
+.mat-mdc-tab {
+  font-size: 9px !important;
+}
+
+.mat-mdc-list-item {
+  font-size: 10px !important;
+}
+
+.mat-toolbar,
+.mat-mdc-toolbar {
+  font-size: 12px !important;
+}
+
+.mat-card-title,
+.mat-mdc-card-title {
+  font-size: 13px !important;
+}
+
+.mat-card-content,
+.mat-mdc-card-content {
+  font-size: 10px !important;
+}
+
+.mat-mdc-snack-bar-label {
+  font-size: 10px !important;
+}
+
+/* Additional Material components font size overrides */
+.mat-mdc-dialog-title {
+  font-size: 14px !important;
+}
+
+.mat-mdc-dialog-content {
+  font-size: 10px !important;
+}
+
+.mat-mdc-table {
+  font-size: 9px !important;
+}
+
+.mat-mdc-header-cell {
+  font-size: 9px !important;
+  font-weight: 600 !important;
+}
+
+.mat-mdc-cell {
+  font-size: 9px !important;
+}
+
+.mat-mdc-paginator {
+  font-size: 9px !important;
+}
+
+.mat-mdc-checkbox .mdc-form-field {
+  font-size: 10px !important;
+}
+
+.mat-mdc-radio-button .mdc-form-field {
+  font-size: 10px !important;
+}
+
+.mat-mdc-slide-toggle .mdc-form-field {
+  font-size: 10px !important;
+}
+
+.mat-mdc-menu-item {
+  font-size: 10px !important;
+}
+
+.mat-mdc-tooltip {
+  font-size: 9px !important;
+}
+
+/* Compact component heights for extra small design */
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-height: 32px !important;
+  --mdc-outlined-text-field-container-height: 32px !important;
+  --mdc-outlined-text-field-input-text-size: 10px !important;
+  --mdc-outlined-text-field-label-text-size: 10px !important;
+  --mdc-filled-text-field-input-text-size: 10px !important;
+  --mdc-filled-text-field-label-text-size: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  height: 32px !important;
+}
+
+.mat-mdc-select {
+  --mdc-filled-text-field-container-height: 32px !important;
+  --mdc-outlined-text-field-container-height: 32px !important;
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  height: 28px !important;
+  min-width: 64px !important;
+  padding: 0 12px !important;
+}
+
+.mat-mdc-icon-button {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Typography overrides for extra small text */
+h1,
+.mat-h1,
+.mat-headline-1 {
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+}
+h2,
+.mat-h2,
+.mat-headline-2 {
+  font-size: 14px !important;
+  line-height: 1.3 !important;
+}
+h3,
+.mat-h3,
+.mat-headline-3 {
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+}
+h4,
+.mat-h4,
+.mat-headline-4 {
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+}
+h5,
+.mat-h5,
+.mat-headline-5 {
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+}
+h6,
+.mat-h6,
+.mat-headline-6 {
+  font-size: 9px !important;
+  line-height: 1.3 !important;
+}
+
+.mat-body,
+.mat-body-1,
+.mat-typography .mat-body-1 {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+}
+.mat-body-strong,
+.mat-body-2,
+.mat-typography .mat-body-2 {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+}
+.mat-small,
+.mat-caption,
+.mat-typography .mat-caption {
+  font-size: 9px !important;
+  line-height: 1.3 !important;
+}
+
+/* ENHANCED FORM FIELD CONFIGURATION - NO TEXT CUTOFF */
+
+/* Standard form field sizing with proper text visibility */
+.mat-mdc-form-field {
+  width: 100%;
+  /* Proper height for readable text */
+  --mdc-filled-text-field-container-height: 48px !important;
+  --mdc-outlined-text-field-container-height: 48px !important;
+  --mat-form-field-container-vertical-padding: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  overflow: visible !important; /* Prevent text cutoff */
+  height: auto !important;
+  min-height: 48px !important;
+}
+
+.mat-mdc-form-field-infix {
+  min-width: 0 !important; /* Allow shrinking on small screens */
+  min-height: 32px !important; /* Ensure sufficient height for text */
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  display: flex !important;
+  align-items: center !important; /* Center text vertically */
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  white-space: normal !important; /* Allow error text to wrap */
+  margin-top: 4px !important;
+  font-size: 12px !important; /* Readable error text */
+  line-height: 1.3 !important;
+}
+
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+  padding-top: 2px !important;
+}
+
+/* Input field text configuration */
+.mat-mdc-input-element {
+  font-size: 14px !important; /* Readable font size */
+  line-height: 1.4 !important;
+  padding: 8px 12px !important;
+  height: auto !important;
+  min-height: 20px !important; /* Minimum height for text */
+  box-sizing: border-box !important;
+  color: var(--md-sys-color-on-surface) !important;
+  caret-color: var(--md-sys-color-primary) !important;
+}
+
+/* Textarea specific configuration */
+.mat-mdc-input-element[type="textarea"],
+textarea.mat-mdc-input-element {
+  min-height: 60px !important; /* Sufficient height for textarea */
+  resize: vertical !important;
+  padding: 12px !important;
+  line-height: 1.5 !important;
+}
+
+/* Compact density for forms and tables */
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-height: 32px !important;
+  --mdc-outlined-text-field-container-height: 32px !important;
+  --mat-form-field-container-vertical-padding: 4px !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  margin-top: 2px !important;
+  font-size: 9px !important;
+}
+
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+  font-size: 9px !important;
+}
+
+.mat-mdc-table {
+  --mat-table-row-item-container-height: 36px !important;
+  --mat-table-header-container-height: 40px !important;
+}
+
+/* Select panel compact styles */
+.mat-mdc-select-panel .mat-mdc-option {
+  min-height: 32px !important;
+  line-height: 32px !important;
+  font-size: 10px !important;
+}
+
+/* Checkbox and radio button compact styles */
+.mat-mdc-checkbox,
+.mat-mdc-radio-button {
+  --mdc-checkbox-state-layer-size: 32px !important;
+  --mdc-radio-state-layer-size: 32px !important;
+}
+
+/* Chip compact styles */
+.mat-mdc-chip {
+  min-height: 24px !important;
+  font-size: 10px !important;
+  --mdc-chip-container-height: 24px !important;
+}
+
+/* Custom utility classes */
+.surface-container {
+  background-color: var(--mat-app-surface-container);
+}
+
+.surface-container-low {
+  background-color: var(--mat-app-surface-container-low);
+}
+
+.surface-container-high {
+  background-color: var(--mat-app-surface-container-high);
+}
+
+.text-on-surface {
+  color: var(--mat-app-on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--mat-app-on-surface-variant);
+}
+
+/* Responsive layout helpers */
+.layout-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-none {
+  flex: none;
+}
+
+/* App-specific styles */
+.app-nav-rail {
+  width: 80px;
+  transition: width 0.2s ease-in-out;
+}
+
+.app-nav-rail.expanded {
+  width: 256px;
+}
+
+.app-content {
+  transition: margin-left 0.2s ease-in-out;
+}
+
+/* ENHANCED COMPACT FORM STYLING - PROPER TEXT ALIGNMENT */
+.compact-form .mat-mdc-form-field {
+  margin-bottom: 12px !important;
+  /* Proper compact height that still shows text clearly */
+  --mdc-outlined-text-field-container-height: 42px !important;
+  --mdc-filled-text-field-container-height: 42px !important;
+  --mat-form-field-container-vertical-padding: 6px !important;
+}
+
+.compact-form .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-top: 0 !important; /* Use margin-bottom instead */
+}
+
+.compact-form .mat-mdc-text-field-wrapper {
+  min-height: 42px !important;
+  overflow: visible !important; /* Prevent text cutoff */
+}
+
+.compact-form .mat-mdc-form-field-infix {
+  min-height: 26px !important; /* Sufficient height for text */
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  display: flex !important;
+  align-items: center !important; /* Center text vertically */
+}
+
+.compact-form .mat-mdc-input-element,
+.compact-form .mat-mdc-form-field input,
+.compact-form .mat-mdc-form-field textarea {
+  font-size: 14px !important; /* Readable font size */
+  line-height: 1.4 !important;
+  padding: 6px 12px !important;
+  height: auto !important;
+  min-height: 20px !important; /* Ensure text is visible */
+  box-sizing: border-box !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* Specific input type configurations for compact forms */
+.compact-form .mat-mdc-form-field input[type="text"],
+.compact-form .mat-mdc-form-field input[type="email"],
+.compact-form .mat-mdc-form-field input[type="password"],
+.compact-form .mat-mdc-form-field input[type="tel"],
+.compact-form .mat-mdc-form-field input[type="url"],
+.compact-form .mat-mdc-form-field input[type="search"],
+.compact-form .mat-mdc-form-field input[type="date"],
+.compact-form .mat-mdc-form-field input[type="datetime-local"],
+.compact-form .mat-mdc-form-field input[type="time"],
+.compact-form .mat-mdc-form-field input[type="month"],
+.compact-form .mat-mdc-form-field input[type="week"],
+.compact-form .mat-mdc-form-field input[type="number"],
+.compact-form .mat-mdc-form-field input[type="range"] {
+  height: auto !important;
+  min-height: 20px !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  vertical-align: middle !important;
+  text-align: left !important; /* Ensure proper text alignment */
+}
+
+/* Textarea specific for compact forms */
+.compact-form .mat-mdc-form-field textarea {
+  min-height: 48px !important; /* Sufficient height for textarea in compact mode */
+  resize: vertical !important;
+  padding: 8px 12px !important;
+  line-height: 1.5 !important;
+}
+
+.compact-form .mat-mdc-button {
+  height: 36px !important; /* Proper button height */
+  font-size: 14px !important; /* Readable button text */
+  font-weight: 500 !important;
+  padding: 0 16px !important;
+  min-width: 64px !important;
+  border-radius: 8px !important;
+}
+
+/* ENHANCED LABEL AND PLACEHOLDER CONFIGURATION */
+
+/* Form field labels */
+.mat-mdc-form-field-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  letter-spacing: 0.25px !important;
+  top: 50% !important; /* Center label vertically */
+  transform: translateY(-50%) !important;
+  pointer-events: none !important;
+}
+
+/* Floating labels */
+.mat-mdc-form-field-label.mdc-floating-label--float-above {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  top: 8px !important;
+  transform: translateY(0) !important;
+  color: var(--md-sys-color-primary) !important;
+}
+
+/* Placeholder text */
+.mat-mdc-input-element::placeholder {
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  opacity: 0.6 !important;
+  text-align: left !important;
+}
+
+/* Select field styling */
+.mat-mdc-select-value {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--md-sys-color-on-surface) !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 20px !important;
+}
+
+.mat-mdc-select-placeholder {
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: 14px !important;
+  opacity: 0.6 !important;
+}
+
+.mat-mdc-select-arrow {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Form field suffixes and prefixes */
+.mat-mdc-form-field-icon-prefix,
+.mat-mdc-form-field-icon-suffix {
+  height: 20px !important;
+  width: 20px !important;
+  font-size: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.mat-mdc-form-field-text-prefix,
+.mat-mdc-form-field-text-suffix {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 4px !important;
+}
+
+/* ENHANCED OUTLINE AND BORDER CONFIGURATION */
+
+/* Form field outline styling */
+.mat-mdc-form-field-outline {
+  border-radius: 8px !important;
+  height: auto !important;
+  min-height: 42px !important; /* Ensure outline matches field height */
+}
+
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-start,
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-end,
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-gap {
+  border-width: 1px !important;
+  border-color: var(--md-sys-color-outline-variant) !important;
+  border-style: solid !important;
+}
+
+/* Focused state */
+.mat-mdc-form-field.mat-focused
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-start,
+.mat-mdc-form-field.mat-focused
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-end,
+.mat-mdc-form-field.mat-focused
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-gap {
+  border-width: 2px !important;
+  border-color: var(--md-sys-color-primary) !important;
+}
+
+/* Error state */
+.mat-mdc-form-field.mat-form-field-invalid
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-start,
+.mat-mdc-form-field.mat-form-field-invalid
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-end,
+.mat-mdc-form-field.mat-form-field-invalid
+  .mat-mdc-form-field-outline
+  .mat-mdc-form-field-outline-gap {
+  border-color: var(--md-sys-color-error) !important;
+}
+
+/* Compact form outline adjustments */
+.compact-form .mat-mdc-form-field-outline {
+  height: auto !important;
+  min-height: 42px !important;
+}
+
+/* Input element focus and hover states */
+.mat-mdc-input-element:focus {
+  outline: none !important;
+  caret-color: var(--md-sys-color-primary) !important;
+}
+
+.mat-mdc-input-element:hover {
+  background-color: transparent !important;
+}
+
+/* CLEAN UP LEGACY OVERRIDES */
+.compact-form
+  .mat-mdc-text-field-wrapper
+  .mat-mdc-form-field-input-control
+  input {
+  height: auto !important;
+  min-height: 20px !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+/* Override Material Design internal styling that might interfere */
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-start,
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-end,
+.mat-mdc-form-field-outline .mat-mdc-form-field-outline-gap {
+  border-width: 1px !important;
+}
+
+.compact-form .mat-mdc-form-field-outline {
+  height: 28px !important;
+}
+
+/* Force input elements to respect our sizing in all contexts */
+input.mat-mdc-input-element {
+  height: 20px !important;
+  min-height: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.compact-form input.mat-mdc-input-element {
+  height: 18px !important;
+  min-height: 18px !important;
+}
+
+/* High-specificity overrides for all input types - MOST IMPORTANT */
+html body .mat-mdc-form-field input[type="text"],
+html body .mat-mdc-form-field input[type="email"],
+html body .mat-mdc-form-field input[type="password"],
+html body .mat-mdc-form-field input[type="tel"],
+html body .mat-mdc-form-field input[type="url"],
+html body .mat-mdc-form-field input[type="search"],
+html body .mat-mdc-form-field input[type="date"],
+html body .mat-mdc-form-field input[type="datetime-local"],
+html body .mat-mdc-form-field input[type="time"],
+html body .mat-mdc-form-field input[type="month"],
+html body .mat-mdc-form-field input[type="week"],
+html body .mat-mdc-form-field input[type="number"],
+html body .mat-mdc-form-field input[type="range"] {
+  height: 20px !important;
+  min-height: 20px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  box-sizing: border-box !important;
+}
+
+/* Even higher specificity for compact forms */
+html body .compact-form .mat-mdc-form-field input[type="text"],
+html body .compact-form .mat-mdc-form-field input[type="email"],
+html body .compact-form .mat-mdc-form-field input[type="password"],
+html body .compact-form .mat-mdc-form-field input[type="tel"],
+html body .compact-form .mat-mdc-form-field input[type="url"],
+html body .compact-form .mat-mdc-form-field input[type="search"],
+html body .compact-form .mat-mdc-form-field input[type="date"],
+html body .compact-form .mat-mdc-form-field input[type="datetime-local"],
+html body .compact-form .mat-mdc-form-field input[type="time"],
+html body .compact-form .mat-mdc-form-field input[type="month"],
+html body .compact-form .mat-mdc-form-field input[type="week"],
+html body .compact-form .mat-mdc-form-field input[type="number"],
+html body .compact-form .mat-mdc-form-field input[type="range"] {
+  height: 18px !important;
+  min-height: 18px !important;
+  padding: 2px 6px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+
+/* Override form field containers for smaller inputs */
+html body .compact-form .mat-mdc-form-field {
+  --mdc-outlined-text-field-container-height: 26px !important;
+  --mdc-filled-text-field-container-height: 26px !important;
+}
+
+html body .compact-form .mat-mdc-form-field-infix {
+  min-height: 16px !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+/* Data table styling */
+.data-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table .mat-mdc-table {
+  min-width: 500px;
+}
+
+/* Offline indicator */
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f44336;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.offline-indicator.show {
+  transform: translateY(0);
+}
+
+/* PWA install prompt */
+.pwa-install-prompt {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+/* Loading states */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 100;
+}
+
+.loading-spinner {
+  --mdc-circular-progress-size: 48px;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Status chips */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-chip.active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-chip.inactive {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* Card max widths to keep forms readable */
+.card-constrained mat-card {
+  max-width: 860px;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-break {
+    page-break-after: always;
+  }
+}
+
+/* Responsive breakpoints */
+@media (max-width: 599px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .app-nav-rail {
+    position: fixed;
+    z-index: 100;
+    transform: translateX(-100%);
+  }
+
+  .app-nav-rail.mobile-open {
+    transform: translateX(0);
+  }
+
+  .app-content {
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* Limit the width of the top app bar to 40% of the viewport and center it */
+.top-app-bar-narrow.mat-toolbar,
+.top-app-bar-narrow.mat-mdc-toolbar,
+.top-app-bar-narrow {
+  width: 40vw; /* ~40% of viewport width */
+  min-width: 320px;
+  max-width: 100%;
+  margin: 0 auto; /* center */
+  border-radius: 8px;
+}
+
+/* Keep internal layout stretching across the toolbar width */
+.top-app-bar-narrow .mat-toolbar-row,
+.top-app-bar-narrow.mat-toolbar-single-row,
+.top-app-bar-narrow .mat-mdc-toolbar-row {
+  width: 100% !important;
+}
+
+/* Global Material 3 compact form overrides */
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-height: 32px !important;
+  --mdc-filled-text-field-container-height: 32px !important;
+  --mdc-outlined-text-field-input-text-size: 10px !important;
+  --mdc-outlined-text-field-label-text-size: 10px !important;
+  --mdc-filled-text-field-input-text-size: 10px !important;
+  --mdc-filled-text-field-label-text-size: 10px !important;
+  --mdc-outlined-text-field-supporting-text-size: 9px !important;
+  --mdc-filled-text-field-supporting-text-size: 9px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Override ALL input field heights globally */
+.mat-mdc-input-element,
+.mat-mdc-form-field input,
+.mat-mdc-form-field textarea {
+  padding: 6px 12px !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  min-height: 20px !important;
+  height: auto !important;
+}
+
+/* Specific overrides for date, number and other input types */
+.mat-mdc-form-field input[type="text"],
+.mat-mdc-form-field input[type="email"],
+.mat-mdc-form-field input[type="password"],
+.mat-mdc-form-field input[type="tel"],
+.mat-mdc-form-field input[type="url"],
+.mat-mdc-form-field input[type="search"],
+.mat-mdc-form-field input[type="date"],
+.mat-mdc-form-field input[type="datetime-local"],
+.mat-mdc-form-field input[type="time"],
+.mat-mdc-form-field input[type="month"],
+.mat-mdc-form-field input[type="week"],
+.mat-mdc-form-field input[type="number"] {
+  height: 20px !important;
+  min-height: 20px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+}
+
+.mat-mdc-form-field-infix {
+  min-height: 20px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+/* Select field compact styling */
+.mat-mdc-select-value {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+}
+
+.mat-mdc-select-arrow {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Dropdown panel compact styling */
+.mat-mdc-select-panel {
+  max-height: 200px !important;
+}
+
+.mat-mdc-option {
+  min-height: 28px !important;
+  line-height: 28px !important;
+  font-size: 10px !important;
+  padding: 0 12px !important;
+}
+
+/* Date picker compact styling */
+.mat-mdc-form-field .mat-datepicker-toggle {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Date input fields compact styling */
+.mat-mdc-form-field input[type="date"],
+.mat-mdc-form-field input[type="datetime-local"],
+.mat-mdc-form-field input[type="time"],
+.mat-mdc-form-field input[type="month"],
+.mat-mdc-form-field input[type="week"] {
+  height: 20px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+}
+
+/* Number and range input fields compact styling */
+.mat-mdc-form-field input[type="number"],
+.mat-mdc-form-field input[type="range"] {
+  height: 20px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+}
+
+/* More specific selectors for date and number inputs in form fields */
+.compact-form .mat-mdc-form-field input[type="date"],
+.compact-form .mat-mdc-form-field input[type="datetime-local"],
+.compact-form .mat-mdc-form-field input[type="time"],
+.compact-form .mat-mdc-form-field input[type="month"],
+.compact-form .mat-mdc-form-field input[type="week"],
+.compact-form .mat-mdc-form-field input[type="number"],
+.compact-form .mat-mdc-form-field input[type="range"] {
+  height: 18px !important;
+  padding: 2px 6px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  min-height: 18px !important;
+}
+
+/* Force form field containers to be smaller for these input types */
+.compact-form .mat-mdc-form-field:has(input[type="date"]),
+.compact-form .mat-mdc-form-field:has(input[type="datetime-local"]),
+.compact-form .mat-mdc-form-field:has(input[type="time"]),
+.compact-form .mat-mdc-form-field:has(input[type="month"]),
+.compact-form .mat-mdc-form-field:has(input[type="week"]),
+.compact-form .mat-mdc-form-field:has(input[type="number"]),
+.compact-form .mat-mdc-form-field:has(input[type="range"]) {
+  --mdc-outlined-text-field-container-height: 24px !important;
+  --mdc-filled-text-field-container-height: 24px !important;
+  margin-bottom: 4px !important;
+}
+
+/* Universal compact date/number field classes (for better browser support) */
+.compact-date-field .mat-mdc-form-field-infix,
+.compact-number-field .mat-mdc-form-field-infix {
+  min-height: 16px !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+.compact-date-field input,
+.compact-number-field input {
+  height: 18px !important;
+  padding: 2px 6px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  min-height: 18px !important;
+}
+
+/* Range input specific styling */
+.mat-mdc-form-field input[type="range"] {
+  height: 16px !important;
+  padding: 2px 8px !important;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.mat-mdc-form-field input[type="range"]::-webkit-slider-track {
+  height: 4px;
+  background: var(--md-sys-color-outline-variant);
+  border-radius: 2px;
+}
+
+.mat-mdc-form-field input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  border: none;
+  cursor: pointer;
+}
+
+.mat-mdc-form-field input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: var(--md-sys-color-outline-variant);
+  border-radius: 2px;
+  border: none;
+}
+
+.mat-mdc-form-field input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary);
+  border: none;
+  cursor: pointer;
+}
+
+/* Autocomplete compact styling */
+.mat-mdc-autocomplete-panel {
+  max-height: 200px !important;
+}
+
+.mat-mdc-autocomplete-panel .mat-mdc-option {
+  min-height: 28px !important;
+  font-size: 10px !important;
+}
+
+/* Form field hint and error text */
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+  font-size: 8px !important;
+  line-height: 1.1 !important;
+  margin-top: 2px !important;
+}
+
+/* Compact styling for form fields with date and number inputs */
+.mat-mdc-form-field:has(input[type="date"]),
+.mat-mdc-form-field:has(input[type="datetime-local"]),
+.mat-mdc-form-field:has(input[type="time"]),
+.mat-mdc-form-field:has(input[type="month"]),
+.mat-mdc-form-field:has(input[type="week"]),
+.mat-mdc-form-field:has(input[type="number"]),
+.mat-mdc-form-field:has(input[type="range"]) {
+  --mdc-outlined-text-field-container-height: 28px !important;
+  --mdc-filled-text-field-container-height: 28px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Alternative selector for browsers that don't support :has() */
+.compact-date-field.mat-mdc-form-field,
+.compact-number-field.mat-mdc-form-field,
+.compact-range-field.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-height: 28px !important;
+  --mdc-filled-text-field-container-height: 28px !important;
+  margin-bottom: 6px !important;
+}
+
+.compact-date-field .mat-mdc-form-field-infix,
+.compact-number-field .mat-mdc-form-field-infix,
+.compact-range-field .mat-mdc-form-field-infix {
+  min-height: 16px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+/* Global PWA Styles */
+.success-snackbar {
+  --mdc-snackbar-container-color: #4caf50;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.warning-snackbar {
+  --mdc-snackbar-container-color: #ff9800;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.update-snackbar {
+  --mdc-snackbar-container-color: #2196f3;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.install-snackbar {
+  --mdc-snackbar-container-color: #9c27b0;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+/* Offline indicator */
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f44336;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.offline-indicator.show {
+  transform: translateY(0);
+}
+
+/* PWA install prompt styles */
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .install-prompt {
+    left: auto;
+    right: 20px;
+    margin: 0;
+  }
+}
+
+/* ULTRA-HIGH SPECIFICITY CSS - FINAL OVERRIDE FOR FORM FIELD HEIGHTS */
+html body mat-form-field.mat-mdc-form-field {
+  --mdc-text-field-container-height: 42px !important;
+  --mdc-filled-text-field-container-height: 42px !important;
+  --mdc-outlined-text-field-container-height: 42px !important;
+  --mdc-text-field-input-text-size: 14px !important;
+  --mdc-text-field-label-text-size: 14px !important;
+  --mdc-outlined-text-field-input-text-size: 14px !important;
+  --mdc-outlined-text-field-label-text-size: 14px !important;
+
+  height: 42px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 16px !important;
+  margin-top: 8px !important;
+
+  .mat-mdc-text-field-wrapper {
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    border-radius: 8px !important;
+  }
+
+  .mat-mdc-form-field-flex {
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+    padding: 7px 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .mdc-text-field {
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    border-radius: 8px !important;
+  }
+
+  .mdc-text-field__input {
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
+    padding: 7px 0 !important;
+    line-height: 1.2 !important;
+    font-size: 14px !important;
+  }
+
+  .mat-mdc-select {
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    line-height: 1.2 !important;
+  }
+
+  .mat-mdc-select-trigger {
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    line-height: 1.2 !important;
+    font-size: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .mat-mdc-select-value {
+    line-height: 1.2 !important;
+    font-size: 14px !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+
+  .mat-mdc-form-field-bottom-align::before {
+    display: none !important;
+  }
+
+  /* Icon suffix styling */
+  .mat-mdc-form-field-icon-suffix {
+    .mat-icon {
+      font-size: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+      color: var(--md-sys-color-on-surface-variant) !important;
+    }
+  }
+}
+
+/* COMPACT FORM LAYOUT WITH PROPER SPACING */
+.compact-form {
+  .mat-mdc-form-field {
+    margin-bottom: 20px !important;
+    margin-top: 4px !important;
+
+    &:last-child {
+      margin-bottom: 12px !important;
+    }
+  }
+}
+
+/* ENHANCED FORM LAYOUT WITH OPTIMAL SPACING - INCREASED PADDING */
+.form-layout {
+  gap: 20px !important; /* Increased from 18px */
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 8px 16px !important; /* Added horizontal padding */
+
+  .mat-mdc-form-field {
+    margin-bottom: 18px !important; /* Increased from 16px */
+    margin-top: 0 !important;
+    width: 100% !important;
+
+    &:last-of-type {
+      margin-bottom: 12px !important;
+    }
+  }
+
+  .checkbox-container {
+    margin: 16px 0 12px 0 !important; /* Increased margins */
+    padding: 12px 8px !important; /* Added horizontal padding */
+    display: flex !important;
+    align-items: center !important;
+    min-height: 40px !important; /* Increased height */
+
+    .mat-mdc-checkbox {
+      font-size: 14px !important;
+      margin-right: 12px !important; /* Increased from 8px */
+
+      .mdc-form-field {
+        font-size: 14px !important;
+        color: var(--md-sys-color-on-surface) !important;
+        line-height: 1.4 !important;
+      }
+
+      .mdc-label {
+        color: var(--md-sys-color-on-surface) !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        cursor: pointer !important;
+        padding-left: 4px !important; /* Added padding for better spacing */
+      }
+    }
+  }
+}
+
+/* FORM ROW LAYOUTS - ENHANCED SPACING AND PADDING */
+.form-row {
+  display: flex !important;
+  gap: 20px !important; /* Increased from 16px */
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 12px !important;
+  padding: 0 8px !important; /* Added horizontal padding */
+
+  .mat-mdc-form-field {
+    flex: 1 !important;
+    min-width: 220px !important; /* Increased from 200px */
+    margin-bottom: 16px !important;
+  }
+
+  /* Equal width columns with better spacing */
+  &.equal-columns .mat-mdc-form-field {
+    flex: 1 1 calc(50% - 10px) !important; /* Adjusted for larger gap */
+  }
+
+  /* Three column layout with enhanced spacing */
+  &.three-columns .mat-mdc-form-field {
+    flex: 1 1 calc(33.333% - 14px) !important; /* Adjusted for larger gap */
+    min-width: 180px !important;
+  }
+}
+
+/* FORM SECTION IMPROVEMENTS - ENHANCED PADDING */
+.form-section {
+  margin-bottom: 28px !important; /* Increased from 24px */
+  padding: 24px !important; /* Increased from 20px */
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 12px !important;
+  background-color: var(--md-sys-color-surface-container-lowest) !important;
+
+  .form-section-title {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    margin-bottom: 20px !important; /* Increased from 16px */
+    color: var(--md-sys-color-on-surface) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important; /* Increased from 8px */
+    padding-bottom: 8px !important; /* Added bottom padding */
+    border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+
+    mat-icon {
+      font-size: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+    }
+  }
+}
+
+/* IMPROVED COMPACT FORM STYLING */
+.compact-form {
+  .mat-mdc-form-field {
+    margin-bottom: 18px !important;
+    margin-top: 0 !important;
+
+    &:last-child {
+      margin-bottom: 12px !important;
+    }
+
+    .mat-mdc-form-field-label {
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      color: var(--md-sys-color-on-surface-variant) !important;
+    }
+
+    .mat-mdc-input-element::placeholder {
+      color: var(--md-sys-color-on-surface-variant) !important;
+      opacity: 0.6 !important;
+      font-size: 13px !important;
+    }
+  }
+}
+
+/* TABLE IMPROVEMENTS */
+.mat-mdc-table {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+
+  .mat-mdc-header-row {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+
+    .mat-mdc-header-cell {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: var(--md-sys-color-on-surface) !important;
+      padding: 12px 16px !important;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+  }
+
+  .mat-mdc-row {
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-low) !important;
+    }
+
+    .mat-mdc-cell {
+      font-size: 13px !important;
+      color: var(--md-sys-color-on-surface) !important;
+      padding: 12px 16px !important;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+  }
+}
+
+/* BUTTON STANDARDIZATION */
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  height: 36px !important;
+  min-height: 36px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.25px !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+
+  .mat-icon {
+    margin-right: 8px !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+.mat-mdc-icon-button {
+  width: 32px !important;
+  height: 32px !important;
+
+  .mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+/* EMPTY STATE IMPROVEMENTS */
+.empty-state,
+.text-center {
+  padding: 40px 24px !important;
+
+  .mat-icon {
+    font-size: 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 16px !important;
+    color: var(--md-sys-color-outline) !important;
+  }
+
+  p {
+    margin: 8px 0 !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+
+    &.text-sm {
+      font-size: 14px !important;
+      line-height: 1.4 !important;
+    }
+
+    &.text-xs {
+      font-size: 12px !important;
+      line-height: 1.3 !important;
+      opacity: 0.8 !important;
+    }
+  }
+}
+
+/* RESPONSIVE DESIGN IMPROVEMENTS */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px 20px 20px !important;
+    gap: 20px !important;
+  }
+
+  .page-header {
+    margin-bottom: 16px !important;
+    padding-bottom: 12px !important;
+
+    h1,
+    .mat-headline-4 {
+      font-size: 18px !important;
+    }
+
+    p,
+    .mat-body-1 {
+      font-size: 13px !important;
+    }
+  }
+
+  .mat-mdc-card-content {
+    padding: 16px !important;
+  }
+
+  .mat-mdc-card-header {
+    padding: 12px 16px 8px !important;
+
+    .mat-mdc-card-title {
+      font-size: 15px !important;
+    }
+  }
+
+  .content-cards {
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 12px 16px 16px !important;
+  }
+
+  .form-layout {
+    gap: 16px !important;
+  }
+
+  .mat-mdc-card-content {
+    padding: 12px !important;
+  }
+}
+
+/* MATERIAL ICON COLOR PRESERVATION */
+.mat-icon {
+  &[color="primary"] {
+    color: var(--mat-sys-color-primary) !important;
+  }
+
+  &[color="accent"] {
+    color: var(--mat-sys-color-secondary) !important;
+  }
+
+  &[color="warn"] {
+    color: var(--mat-sys-color-error) !important;
+  }
+
+  &.mat-primary {
+    color: var(--mat-sys-color-primary) !important;
+  }
+
+  &.mat-accent {
+    color: var(--mat-sys-color-secondary) !important;
+  }
+
+  &.mat-warn {
+    color: var(--mat-sys-color-error) !important;
+  }
+}
+
+/* FORM FIELD SUFFIX ICON COLORS */
+.mat-mdc-form-field .mat-mdc-form-field-icon-suffix .mat-icon {
+  &[color="primary"] {
+    color: var(--mat-sys-color-primary) !important;
+  }
+
+  &[color="accent"] {
+    color: var(--mat-sys-color-secondary) !important;
+  }
+} /* ULTRA-HIGH SPECIFICITY FOR DATE, TIME, AND NUMBER INPUTS */
+html body input[type="date"].mat-mdc-input-element,
+html body input[type="time"].mat-mdc-input-element,
+html body input[type="number"].mat-mdc-input-element,
+html body input[type="datetime-local"].mat-mdc-input-element {
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  padding: 4px 0 !important;
+  line-height: 1.1 !important;
+  font-size: 13px !important;
+  box-sizing: border-box !important;
+}
+
+/* GLOBAL FORM FIELD HEIGHT REDUCTION - ALL TYPES */
+html body mat-form-field.mat-mdc-form-field .mat-mdc-text-field-wrapper,
+html body mat-form-field.mat-mdc-form-field .mat-mdc-form-field-flex,
+html body mat-form-field.mat-mdc-form-field .mdc-text-field {
+  height: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+}
+
+html body mat-form-field.mat-mdc-form-field input,
+html body mat-form-field.mat-mdc-form-field select {
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  padding: 4px 0 !important;
+  line-height: 1.1 !important;
+  font-size: 13px !important;
+}
+
+/* SPECIAL HANDLING FOR TEXTAREA FIELDS */
+html body mat-form-field.mat-mdc-form-field textarea {
+  min-height: 56px !important;
+  height: auto !important;
+  padding: 12px 0 !important;
+  line-height: 1.4 !important;
+  font-size: 14px !important;
+  resize: vertical !important;
+}
+
+/* TEXTAREA FORM FIELD CONTAINER ADJUSTMENT */
+html body mat-form-field.mat-mdc-form-field:has(textarea) {
+  height: auto !important;
+  min-height: 72px !important;
+  margin-bottom: 20px !important;
+
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field-flex,
+  .mdc-text-field {
+    height: auto !important;
+    min-height: 72px !important;
+    max-height: none !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    height: auto !important;
+    min-height: 56px !important;
+    padding: 8px 0 !important;
+  }
+}
+
+/* ===== COMPREHENSIVE LAYOUT & SPACING IMPROVEMENTS ===== */
+
+/* PAGE CONTAINER LAYOUT STANDARDIZATION - ENHANCED PADDING */
+.page-container {
+  padding: 24px 32px 32px !important; /* Increased left/right padding */
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  min-height: calc(100vh - 64px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 28px !important; /* Increased gap between sections */
+  box-sizing: border-box !important;
+}
+
+/* RESPONSIVE PADDING FOR DIFFERENT SCREEN SIZES */
+@media (max-width: 1200px) {
+  .page-container {
+    padding: 20px 28px 28px !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px 20px 24px !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 12px 16px 20px !important;
+    gap: 16px !important;
+  }
+}
+
+/* PAGE HEADER IMPROVEMENTS */
+.page-header {
+  margin-bottom: 20px !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+
+  h1,
+  .mat-headline-4 {
+    margin: 0 0 8px 0 !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    color: var(--md-sys-color-on-surface) !important;
+    letter-spacing: 0.25px !important;
+  }
+
+  p,
+  .mat-body-1 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-weight: 400 !important;
+  }
+}
+
+/* CONTENT CARDS LAYOUT - ENHANCED SPACING */
+.content-cards {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important; /* Increased gap between cards */
+  flex: 1 !important;
+  padding: 8px 0 !important; /* Add vertical padding */
+}
+
+/* TWO-COLUMN LAYOUT FOR LARGER SCREENS */
+@media (min-width: 1024px) {
+  .content-cards.two-column {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+}
+
+/* FORM AND TABLE CARDS SPACING */
+.form-card {
+  margin-bottom: 20px !important;
+}
+
+.table-card {
+  margin-top: 4px !important;
+}
+
+/* MATERIAL CARD ENHANCEMENTS - ENHANCED PADDING */
+.mat-mdc-card {
+  border-radius: 12px !important;
+  box-shadow: var(--md-sys-elevation-shadow-level1) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  overflow: hidden !important;
+  margin: 0 0 16px 0 !important; /* Add bottom margin between cards */
+
+  &:hover {
+    box-shadow: var(--md-sys-elevation-shadow-level2) !important;
+  }
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* CARD HEADER STANDARDIZATION - ENHANCED PADDING */
+.mat-mdc-card-header {
+  padding: 20px 24px 16px !important; /* Increased horizontal padding */
+  background-color: var(--md-sys-color-surface-container-highest) !important;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+
+  .mat-mdc-card-title {
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    color: var(--md-sys-color-on-surface) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+
+    .mat-icon {
+      font-size: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+    }
+  }
+
+  .mat-mdc-card-subtitle {
+    margin: 4px 0 0 0 !important;
+    font-size: 12px !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+  }
+}
+
+/* CARD CONTENT SPACING - ENHANCED PADDING */
+.mat-mdc-card-content {
+  padding: 24px !important; /* Increased padding from 20px to 24px */
+
+  &:last-child {
+    padding-bottom: 24px !important;
+  }
+}
+
+/* CARD ACTIONS IMPROVEMENT - ENHANCED PADDING */
+.mat-mdc-card-actions {
+  padding: 16px 24px 20px !important; /* Increased horizontal padding */
+  background-color: var(--md-sys-color-surface-container-low) !important;
+  border-top: 1px solid var(--md-sys-color-outline-variant) !important;
+  gap: 12px !important;
+
+  .mat-mdc-button,
+  .mat-mdc-raised-button {
+    height: 36px !important;
+    min-height: 36px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 0 16px !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* ENHANCED MATERIAL DESIGN COMPONENT SPACING */
+
+/* Toolbar Improvements */
+.mat-toolbar {
+  min-height: 56px !important;
+  padding: 0 16px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-toolbar-row {
+  padding: 0 !important;
+  height: 56px !important;
+  min-height: 56px !important;
+}
+
+/* Tab Group Improvements */
+.mat-tab-group {
+  margin-bottom: 20px !important;
+}
+
+.mat-tab-header {
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+  margin-bottom: 16px !important;
+}
+
+.mat-tab-labels {
+  padding: 0 8px !important;
+}
+
+.mat-tab-label {
+  min-width: 80px !important;
+  padding: 0 16px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1px !important;
+}
+
+.mat-tab-label-content {
+  line-height: 48px !important;
+}
+
+/* List Improvements */
+.mat-list-base {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+.mat-list-item {
+  min-height: 48px !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.mat-list-item-content {
+  padding: 8px 16px !important;
+}
+
+.mat-list-text {
+  padding-right: 0 !important;
+}
+
+/* Menu Improvements */
+.mat-menu-panel {
+  min-width: 180px !important;
+  max-width: 320px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-menu-item {
+  min-height: 40px !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+/* Dialog Improvements */
+.mat-mdc-dialog-container {
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+}
+
+.mat-mdc-dialog-title {
+  margin: 0 !important;
+  padding: 20px 24px 16px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+}
+
+.mat-mdc-dialog-content {
+  margin: 0 !important;
+  padding: 0 24px !important;
+  max-height: 65vh !important;
+  overflow-y: auto !important;
+}
+
+.mat-mdc-dialog-actions {
+  margin: 0 !important;
+  padding: 16px 24px 20px !important;
+  border-top: 1px solid var(--md-sys-color-outline-variant) !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+}
+
+/* Snackbar Improvements */
+.mat-mdc-snack-bar-container {
+  border-radius: 8px !important;
+  padding: 0 !important;
+  min-width: 280px !important;
+  max-width: 400px !important;
+}
+
+.mat-mdc-simple-snack-bar {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  padding: 14px 16px !important;
+}
+
+.mat-mdc-snack-bar-action {
+  color: var(--md-sys-color-primary) !important;
+  font-weight: 500 !important;
+  margin-left: 16px !important;
+}
+
+/* IMPROVED SCROLLBAR STYLING */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline-variant) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--md-sys-color-outline-variant);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-sys-color-outline);
+}
+
+/* ACCESSIBILITY IMPROVEMENTS */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* HIGH CONTRAST MODE SUPPORT */
+@media (prefers-contrast: high) {
+  .mat-mdc-card {
+    border: 2px solid var(--md-sys-color-outline) !important;
+  }
+
+  .mat-mdc-form-field-outline {
+    border-width: 2px !important;
+  }
+
+  .mat-mdc-button,
+  .mat-mdc-raised-button {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* COMPONENT-SPECIFIC ENHANCEMENTS FOR PROPER TEXT ALIGNMENT */
+
+/* Status badge styling */
+.status-badge {
+  padding: 4px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  min-width: 64px !important;
+  letter-spacing: 0.1px !important;
+}
+
+.status-active {
+  background-color: var(--md-sys-color-success-container, #d8f5d8) !important;
+  color: var(--md-sys-color-on-success-container, #1b5e20) !important;
+}
+
+.status-inactive {
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
+}
+
+/* Count badge styling */
+.count-badge {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+  min-width: 20px !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+}
+
+/* Table enhancements */
+.table-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+  min-height: 300px !important;
+}
+
+.table-container {
+  flex: 1 !important;
+  padding: 8px 16px 16px !important; /* Enhanced padding with horizontal spacing */
+  overflow-y: auto !important;
+  max-height: 600px !important;
+}
+
+.table-wrapper {
+  overflow-x: auto !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  margin: 8px 0 !important; /* Added vertical margin */
+  padding: 4px !important; /* Added internal padding */
+  background-color: var(--md-sys-color-surface) !important;
+}
+
+.data-table {
+  width: 100% !important;
+  font-size: 14px !important;
+}
+
+.table-header {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+  height: 52px !important; /* Increased from 48px */
+  padding: 0 20px !important; /* Increased horizontal padding */
+  text-align: left !important;
+  vertical-align: middle !important;
+}
+
+.table-cell {
+  padding: 16px 20px !important; /* Increased from 12px 16px */
+  height: auto !important;
+  min-height: 52px !important; /* Increased from 48px */
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+  vertical-align: middle !important;
+}
+
+.cell-content {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--md-sys-color-on-surface) !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 20px !important;
+  word-break: break-word !important;
+}
+
+.action-buttons {
+  display: flex !important;
+  gap: 4px !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.action-button {
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.action-button mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Empty state styling */
+.empty-state {
+  text-align: center !important;
+  padding: 48px 24px !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.empty-state mat-icon {
+  font-size: 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+  margin-bottom: 16px !important;
+  opacity: 0.6 !important;
+}
+
+.empty-title {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  margin: 0 0 8px 0 !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.empty-subtitle {
+  font-size: 14px !important;
+  margin: 0 !important;
+  opacity: 0.7 !important;
+  line-height: 1.4 !important;
+}
+
+/* Spinning animation for loading states */
+.spinning-icon {
+  animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* AG GRID MATERIAL DESIGN 3 CUSTOMIZATION */
+.ag-theme-material {
+  /* Override AG Grid colors to match Material 3 theme */
+  --ag-background-color: var(--md-sys-color-surface);
+  --ag-foreground-color: var(--md-sys-color-on-surface);
+  --ag-border-color: var(--md-sys-color-outline-variant);
+  --ag-secondary-border-color: var(--md-sys-color-outline-variant);
+  --ag-header-background-color: var(--md-sys-color-surface-container-highest);
+  --ag-header-foreground-color: var(--md-sys-color-on-surface-variant);
+  --ag-odd-row-background-color: var(--md-sys-color-surface-container-lowest);
+  --ag-row-hover-color: var(--md-sys-color-surface-container-low);
+  --ag-selected-row-background-color: var(--md-sys-color-primary-container);
+  --ag-range-selection-background-color: var(--md-sys-color-primary-container);
+  --ag-cell-horizontal-border: none;
+  --ag-row-border-color: var(--md-sys-color-outline-variant);
+
+  /* Compact sizing to match your design */
+  --ag-grid-size: 4px;
+  --ag-row-height: 44px;
+  --ag-header-height: 48px;
+  --ag-list-item-height: 32px;
+
+  /* Typography to match Material 3 */
+  font-family: "Roboto", "Helvetica Neue", sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+
+  /* Border radius for modern look */
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: var(--md-sys-elevation-shadow-level1) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+/* AG Grid header styling */
+.ag-theme-material .ag-header {
+  border-bottom: 2px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.ag-theme-material .ag-header-cell {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  padding: 0 16px !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.ag-theme-material .ag-header-cell-text {
+  font-weight: 500 !important;
+  letter-spacing: 0.1px !important;
+}
+
+/* AG Grid cell styling */
+.ag-theme-material .ag-cell {
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-right: none !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.ag-theme-material .ag-row {
+  border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+/* AG Grid selection styling */
+.ag-theme-material .ag-row-selected {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.ag-theme-material .ag-cell-range-selected {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+/* AG Grid focus styling */
+.ag-theme-material .ag-cell-focus {
+  border: 2px solid var(--md-sys-color-primary) !important;
+  outline: none !important;
+}
+
+/* AG Grid loading overlay */
+.ag-theme-material .ag-overlay-loading-wrapper {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.ag-theme-material .ag-overlay-loading-center {
+  background-color: var(--md-sys-color-surface-container) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+/* AG Grid pagination styling */
+.ag-theme-material .ag-paging-panel {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  border-top: 1px solid var(--md-sys-color-outline-variant) !important;
+  padding: 8px 16px !important;
+}
+
+.ag-theme-material .ag-paging-button {
+  background-color: transparent !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: 6px !important;
+  color: var(--md-sys-color-on-surface) !important;
+  font-size: 14px !important;
+  padding: 6px 12px !important;
+  margin: 0 2px !important;
+  min-height: 32px !important;
+}
+
+.ag-theme-material .ag-paging-button:hover:not(.ag-disabled) {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+.ag-theme-material .ag-paging-button.ag-disabled {
+  opacity: 0.38 !important;
+  cursor: not-allowed !important;
+}
+
+/* AG Grid filter styling */
+.ag-theme-material .ag-filter {
+  background-color: var(--md-sys-color-surface-container) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--md-sys-elevation-shadow-level2) !important;
+}
+
+.ag-theme-material .ag-filter-input {
+  background-color: var(--md-sys-color-surface) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.ag-theme-material .ag-filter-input:focus {
+  border-color: var(--md-sys-color-primary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2) !important;
+}
+
+/* AG Grid menu styling */
+.ag-theme-material .ag-menu {
+  background-color: var(--md-sys-color-surface-container) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--md-sys-elevation-shadow-level3) !important;
+}
+
+.ag-theme-material .ag-menu-option {
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.ag-theme-material .ag-menu-option:hover {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+/* AG Grid sort indicators */
+.ag-theme-material .ag-header-cell-sorted-asc .ag-header-cell-text::after,
+.ag-theme-material .ag-header-cell-sorted-desc .ag-header-cell-text::after {
+  color: var(--md-sys-color-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* AG Grid in card containers */
+.mat-mdc-card .ag-theme-material {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* AG Grid Action Buttons */
+.ag-action-btn {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  border-radius: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.ag-action-btn:hover {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+.ag-action-btn.edit-btn {
+  color: var(--md-sys-color-primary) !important;
+}
+
+.ag-action-btn.delete-btn {
+  color: var(--md-sys-color-error) !important;
+}
+
+.ag-action-btn.edit-btn:hover {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.ag-action-btn.delete-btn:hover {
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
+}
+
+/* Status badges in AG Grid */
+.ag-theme-material .status-badge {
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  min-width: 60px !important;
+}
+
+.ag-theme-material .status-active {
+  background-color: var(--md-sys-color-success-container, #d8f5d8) !important;
+  color: var(--md-sys-color-on-success-container, #1b5e20) !important;
+}
+
+.ag-theme-material .status-inactive {
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
+}
+
+.ag-theme-material .status-pending {
+  background-color: var(--md-sys-color-warning-container, #fff8e1) !important;
+  color: var(--md-sys-color-on-warning-container, #e65100) !important;
+}
+
+/* Enhanced AG Grid toolbar */
+.ag-theme-material .ag-header-group-cell,
+.ag-theme-material .ag-header-cell {
+  background-color: var(--md-sys-color-surface-container-highest) !important;
+  border-right: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.ag-theme-material .ag-header-group-cell:last-child,
+.ag-theme-material .ag-header-cell:last-child {
+  border-right: none !important;
+}
+
+/* AG Grid export buttons */
+.ag-theme-material .ag-tool-panel-wrapper {
+  background-color: var(--md-sys-color-surface-container) !important;
+  border-left: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.ag-theme-material .ag-column-tool-panel,
+.ag-theme-material .ag-filter-tool-panel {
+  background-color: var(--md-sys-color-surface-container) !important;
+}
+
+/* AG Grid floating filter */
+.ag-theme-material .ag-floating-filter-input {
+  background-color: var(--md-sys-color-surface) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  font-size: 13px !important;
+}
+
+.ag-theme-material .ag-floating-filter-input:focus {
+  border-color: var(--md-sys-color-primary) !important;
+  outline: none !important;
+}
+
+/* Responsive AG Grid */
+@media (max-width: 768px) {
+  .ag-theme-material {
+    --ag-row-height: 40px;
+    --ag-header-height: 44px;
+    font-size: 13px !important;
+  }
+
+  .ag-theme-material .ag-cell,
+  .ag-theme-material .ag-header-cell {
+    padding: 0 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ag-theme-material {
+    --ag-row-height: 36px;
+    --ag-header-height: 40px;
+    font-size: 12px !important;
+  }
+
+  .ag-theme-material .ag-cell,
+  .ag-theme-material .ag-header-cell {
+    padding: 0 8px !important;
+  }
+}

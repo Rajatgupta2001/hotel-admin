@@ -1,0 +1,122 @@
+{
+  "outboxData": {
+    "operations": [
+      {
+        "id": "op_1724762800000_abc123def",
+        "type": "CREATE",
+        "entity": "roomType",
+        "entityId": "demo-1",
+        "payload": {
+          "name": "Demo Deluxe Room",
+          "description": "A luxurious room with city view",
+          "maxOccupancy": 2,
+          "basePrice": 150,
+          "amenities": ["Wi-Fi", "Air Conditioning", "Mini Bar"]
+        },
+        "status": "pending",
+        "timestamp": "2025-08-27T10:00:00.000Z"
+      },
+      {
+        "id": "op_1724762860000_def456ghi",
+        "type": "UPDATE",
+        "entity": "room",
+        "entityId": "demo-2",
+        "payload": {
+          "id": "demo-2",
+          "roomNumber": "101",
+          "status": "available",
+          "cleaningStatus": "clean",
+          "lastUpdated": "2025-08-27T10:01:00.000Z"
+        },
+        "status": "pending",
+        "timestamp": "2025-08-27T10:01:00.000Z"
+      },
+      {
+        "id": "op_1724762920000_ghi789jkl",
+        "type": "DELETE",
+        "entity": "user",
+        "entityId": "demo-3",
+        "payload": {
+          "id": "demo-3",
+          "reason": "User requested account deletion"
+        },
+        "status": "failed",
+        "timestamp": "2025-08-27T10:02:00.000Z",
+        "error": "Simulated network error"
+      },
+      {
+        "id": "op_1724762980000_jkl012mno",
+        "type": "CREATE",
+        "entity": "amenity",
+        "entityId": "demo-4",
+        "payload": {
+          "name": "High-Speed WiFi",
+          "category": "Technology",
+          "isComplimentary": true,
+          "description": "Complimentary high-speed wireless internet access"
+        },
+        "status": "synced",
+        "timestamp": "2025-08-27T10:03:00.000Z"
+      },
+      {
+        "id": "op_1724763040000_mno345pqr",
+        "type": "UPDATE",
+        "entity": "ratePlan",
+        "entityId": "demo-5",
+        "payload": {
+          "id": "demo-5",
+          "name": "Weekend Special",
+          "discount": 15,
+          "validUntil": "2025-12-31",
+          "applicableDays": ["Friday", "Saturday", "Sunday"]
+        },
+        "status": "synced",
+        "timestamp": "2025-08-27T10:04:00.000Z"
+      }
+    ],
+    "lastSyncAttempt": "2025-08-27T10:05:00.000Z",
+    "lastSuccessfulSync": "2025-08-27T10:04:30.000Z",
+    "summary": {
+      "totalOperations": 5,
+      "pendingOperations": 2,
+      "failedOperations": 1,
+      "syncedOperations": 2
+    }
+  },
+  "description": "Outbox Pattern Implementation for Hotel Admin PWA",
+  "features": {
+    "offline_first": "Operations are queued locally when created, updated, or deleted",
+    "sync_simulation": "Simulates server synchronization with 90% success rate",
+    "operation_tracking": "Each operation has unique ID, timestamp, and status",
+    "error_handling": "Failed operations are marked with error details",
+    "local_storage": "All outbox data persists in browser localStorage",
+    "summary_metrics": "Real-time counts of pending, failed, and synced operations"
+  },
+  "usage_example": {
+    "create_demo_operations": "Click 'Create Demo Operations' button to add sample operations to outbox",
+    "simulate_sync": "Click 'Simulate Sync' button to process pending operations",
+    "view_console": "Check browser console for detailed sync logs",
+    "persistent_storage": "Operations persist across browser sessions"
+  },
+  "technical_implementation": {
+    "storage_service": "Enhanced with outbox functionality for automatic operation queuing",
+    "outbox_service": "Dedicated service for managing outbox operations and sync simulation",
+    "dashboard_component": "Displays outbox summary with operation counts and sync controls",
+    "localStorage_key": "hotel-admin-outbox stores all outbox data as JSON"
+  },
+  "sync_simulation_output": {
+    "console_example": [
+      "🔄 Starting sync simulation...",
+      "📦 Found 2 pending operations to sync",
+      "📊 Sync Summary:",
+      "   Total operations: 2",
+      "   ✅ Successful: 2",
+      "   ❌ Failed: 0",
+      "   📋 Details:",
+      "      ✅ CREATE roomType:demo-1",
+      "      ✅ UPDATE room:demo-2",
+      "🗑️ Successfully synced operations can be cleared from outbox",
+      "🔄 Sync simulation completed"
+    ]
+  }
+}

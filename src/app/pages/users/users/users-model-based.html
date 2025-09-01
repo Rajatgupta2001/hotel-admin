@@ -1,0 +1,692 @@
+<div class="max-w-7xl mx-auto h-full">
+  <div class="mb-4">
+    <h1 class="text-xl font-bold text-gray-900 mb-1">Users Management</h1>
+    <p class="text-sm text-gray-600">Manage hotel staff and user accounts</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Search and Filter Bar -->
+    <div
+      class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
+    >
+      <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+        <mat-form-field
+          appearance="outline"
+          class="w-64 !text-sm"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>Search users</mat-label>
+          <input
+            matInput
+            [(ngModel)]="searchTerm"
+            (input)="searchUsers()"
+            placeholder="Search by employee ID or blood group"
+            class="!text-sm"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="outline"
+          class="w-40 !text-sm"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>Filter by status</mat-label>
+          <mat-select
+            [(ngModel)]="selectedFilter"
+            (selectionChange)="searchUsers()"
+          >
+            <mat-option value="all">All Status</mat-option>
+            <mat-option value="A">Active</mat-option>
+            <mat-option value="I">Inactive</mat-option>
+            <mat-option value="D">Deleted</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex items-center justify-end space-x-2">
+        @if (selectedUsers().size > 0) {
+          <span class="text-sm text-gray-600">
+            {{ selectedUsers().size }} selected
+          </span>
+          <button
+            mat-button
+            color="warn"
+            (click)="cancelSelection()"
+            class="!text-sm !min-h-9"
+          >
+            Cancel Selection
+          </button>
+        }
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="showAddForm.set(true)"
+          class="!text-sm !font-medium !min-h-9 !px-4"
+        >
+          <mat-icon class="mr-1 !text-base">add</mat-icon>
+          Add User
+        </button>
+      </div>
+    </div>
+
+    <!-- Add/Edit Form -->
+    @if (showAddForm()) {
+      <mat-card class="flex flex-col">
+        <mat-card-header class="flex-shrink-0 !pb-2">
+          <mat-card-title class="flex items-center text-sm font-medium">
+            <mat-icon class="mr-2 text-blue-600 !text-lg">person_add</mat-icon>
+            {{ editing() ? "Edit User" : "Add New User" }}
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="flex-1 !pt-0 !pb-2 overflow-y-auto max-h-96">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-3">
+            <!-- Basic Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Employee ID *</mat-label>
+                <input
+                  matInput
+                  formControlName="employeeid"
+                  placeholder="e.g., EMP001"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">badge</mat-icon>
+                @if (
+                  form.get("employeeid")?.hasError("required") &&
+                  form.get("employeeid")?.touched
+                ) {
+                  <mat-error class="!text-xs"
+                    >Employee ID is required</mat-error
+                  >
+                }
+                @if (form.get("employeeid")?.hasError("duplicate")) {
+                  <mat-error class="!text-xs"
+                    >Employee ID already exists</mat-error
+                  >
+                }
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Blood Group *</mat-label>
+                <mat-select formControlName="bloodgroup" class="!text-sm">
+                  <mat-option value="A+">A+ (A Positive)</mat-option>
+                  <mat-option value="A-">A- (A Negative)</mat-option>
+                  <mat-option value="B+">B+ (B Positive)</mat-option>
+                  <mat-option value="B-">B- (B Negative)</mat-option>
+                  <mat-option value="AB+">AB+ (AB Positive)</mat-option>
+                  <mat-option value="AB-">AB- (AB Negative)</mat-option>
+                  <mat-option value="O+">O+ (O Positive)</mat-option>
+                  <mat-option value="O-">O- (O Negative)</mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="!text-base">bloodtype</mat-icon>
+                @if (
+                  form.get("bloodgroup")?.hasError("required") &&
+                  form.get("bloodgroup")?.touched
+                ) {
+                  <mat-error class="!text-xs"
+                    >Blood group is required</mat-error
+                  >
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Department and Job Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Department</mat-label>
+                <mat-select formControlName="departmentid" class="!text-sm">
+                  <mat-option [value]="null">No Department</mat-option>
+                  @for (dept of departments(); track dept.id) {
+                    <mat-option [value]="dept.id">{{ dept.name }}</mat-option>
+                  }
+                </mat-select>
+                <mat-icon matSuffix class="!text-base">business</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Job Type ID</mat-label>
+                <input
+                  matInput
+                  formControlName="jobtypeid"
+                  type="number"
+                  placeholder="Job type identifier"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">work</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Emergency Contact</mat-label>
+                <input
+                  matInput
+                  formControlName="emergencyno"
+                  placeholder="Emergency phone number"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">emergency</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Date of Joining</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="dojPicker"
+                  formControlName="doj"
+                  placeholder="Select date"
+                  class="!text-sm !py-1"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="dojPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #dojPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <!-- Identity Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Identity Type *</mat-label>
+                <mat-select formControlName="identitytype" class="!text-sm">
+                  <mat-option [value]="1">Passport</mat-option>
+                  <mat-option [value]="2">Driver License</mat-option>
+                  <mat-option [value]="3">National ID</mat-option>
+                  <mat-option [value]="4">Other</mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="!text-base">credit_card</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Identity Value</mat-label>
+                <input
+                  matInput
+                  formControlName="identityvalue"
+                  placeholder="ID number or value"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">fingerprint</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Shift Timing -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Shift From</mat-label>
+                <input
+                  matInput
+                  formControlName="shiftfrom"
+                  placeholder="e.g., 09:00"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">schedule</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Shift To</mat-label>
+                <input
+                  matInput
+                  formControlName="shiftto"
+                  placeholder="e.g., 17:00"
+                  class="!text-sm !py-1"
+                />
+                <mat-icon matSuffix class="!text-base">schedule</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Access Control -->
+            <div class="space-y-2 p-3 bg-gray-50 rounded-md">
+              <div class="text-sm font-medium text-gray-700 mb-2">
+                Access Control
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <mat-form-field
+                  appearance="fill"
+                  class="!text-sm"
+                  subscriptSizing="dynamic"
+                >
+                  <mat-label>POS Access Code</mat-label>
+                  <input
+                    matInput
+                    formControlName="posaccesscode"
+                    placeholder="POS system access code"
+                    class="!text-sm !py-1"
+                  />
+                  <mat-icon matSuffix class="!text-base">lock</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field
+                  appearance="fill"
+                  class="!text-sm"
+                  subscriptSizing="dynamic"
+                >
+                  <mat-label>Allowed IPs</mat-label>
+                  <input
+                    matInput
+                    formControlName="allowedips"
+                    placeholder="Comma-separated IP addresses"
+                    class="!text-sm !py-1"
+                  />
+                  <mat-icon matSuffix class="!text-base">computer</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div class="flex items-center">
+                  <mat-checkbox formControlName="canlogin" class="!text-sm">
+                    Can Login
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox formControlName="present" class="!text-sm">
+                    Present
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox formControlName="isreadonly" class="!text-sm">
+                    Read Only
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="issalesperson"
+                    class="!text-sm"
+                  >
+                    Sales Person
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <!-- Permissions -->
+            <div class="space-y-2 p-3 bg-gray-50 rounded-md">
+              <div class="text-sm font-medium text-gray-700 mb-2">
+                Permissions
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="restrictnareport"
+                    class="!text-sm"
+                  >
+                    Restrict NA Report
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="restrictdtreport"
+                    class="!text-sm"
+                  >
+                    Restrict DT Report
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="restrictminbooking"
+                    class="!text-sm"
+                  >
+                    Restrict Min Booking
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="alwaysallownareport"
+                    class="!text-sm"
+                  >
+                    Always Allow NA Report
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="restrictrsvediting"
+                    class="!text-sm"
+                  >
+                    Restrict Reservation Editing
+                  </mat-checkbox>
+                </div>
+                <div class="flex items-center">
+                  <mat-checkbox
+                    formControlName="restrictgsemail"
+                    class="!text-sm"
+                  >
+                    Restrict Guest Email
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status and Comments -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Status *</mat-label>
+                <mat-select formControlName="status" class="!text-sm">
+                  <mat-option value="A">Active</mat-option>
+                  <mat-option value="I">Inactive</mat-option>
+                  <mat-option value="D">Deleted</mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="!text-base">info</mat-icon>
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="fill"
+                class="!text-sm"
+                subscriptSizing="dynamic"
+              >
+                <mat-label>Comments</mat-label>
+                <textarea
+                  matInput
+                  formControlName="comments"
+                  rows="2"
+                  placeholder="Additional notes"
+                  class="!text-sm !leading-tight resize-none"
+                ></textarea>
+                <mat-icon matSuffix class="!text-base">comment</mat-icon>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-card-content>
+
+        <mat-card-actions class="flex-shrink-0 !px-3 !pb-3 !pt-1">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit()"
+            [disabled]="form.invalid || saving()"
+            class="!text-sm !font-medium !min-h-9 !px-4"
+          >
+            @if (saving()) {
+              <mat-icon class="animate-spin mr-1 !text-base">refresh</mat-icon>
+            } @else {
+              <mat-icon class="mr-1 !text-base">{{
+                editing() ? "update" : "add"
+              }}</mat-icon>
+            }
+            {{ editing() ? "Update" : "Add" }} User
+          </button>
+
+          <button
+            mat-button
+            (click)="closeForm()"
+            type="button"
+            class="!text-sm !min-h-9"
+          >
+            Cancel
+          </button>
+
+          <button
+            mat-button
+            (click)="resetForm()"
+            type="button"
+            class="!text-sm !min-h-9"
+          >
+            Reset
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+
+    <!-- Users Table -->
+    <mat-card class="flex flex-col">
+      <mat-card-header class="flex-shrink-0 !pb-2">
+        <mat-card-title
+          class="flex items-center justify-between w-full text-sm font-medium"
+        >
+          <div class="flex items-center">
+            <mat-icon class="mr-2 text-green-600 !text-lg">people</mat-icon>
+            Users List
+            <span
+              class="ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full font-medium"
+            >
+              {{ filteredUsers().length }}
+            </span>
+          </div>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="flex-1 !pt-0 !pb-2 overflow-y-auto min-h-64">
+        @if (filteredUsers().length === 0) {
+          <div class="text-center py-6 text-gray-500">
+            <mat-icon class="text-3xl mb-2 opacity-50">people</mat-icon>
+            <p class="text-sm">No users found</p>
+            <p class="text-xs">Add your first user or adjust search criteria</p>
+          </div>
+        } @else {
+          <div class="overflow-x-auto">
+            <table
+              mat-table
+              [dataSource]="filteredUsers()"
+              class="w-full !text-sm"
+            >
+              <!-- Selection Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef class="!w-12">
+                  <mat-checkbox
+                    [checked]="isAllSelected()"
+                    [indeterminate]="isIndeterminate()"
+                    (change)="toggleAll()"
+                    class="!text-sm"
+                  ></mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2 !w-12">
+                  <mat-checkbox
+                    [checked]="isUserSelected(user.id)"
+                    (change)="toggleUser(user.id)"
+                    class="!text-sm"
+                  ></mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Employee ID Column -->
+              <ng-container matColumnDef="employeeid">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Employee ID
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <div class="font-medium text-sm">{{ user.employeeid }}</div>
+                </td>
+              </ng-container>
+
+              <!-- Blood Group Column -->
+              <ng-container matColumnDef="bloodgroup">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Blood Group
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <span
+                    class="text-sm bg-red-100 text-red-800 px-2 py-1 rounded-full"
+                  >
+                    {{ user.bloodgroup }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <!-- Department Column -->
+              <ng-container matColumnDef="department">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Department
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <div class="text-sm">
+                    {{ departmentName(user.departmentid) }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Identity Type Column -->
+              <ng-container matColumnDef="identity">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Identity
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <div class="text-sm">
+                    <div>{{ getIdentityTypeText(user.identitytype) }}</div>
+                    @if (user.identityvalue) {
+                      <div class="text-xs text-gray-500">
+                        {{ user.identityvalue }}
+                      </div>
+                    }
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Status
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <div class="flex items-center">
+                    <mat-icon
+                      [class]="getStatusIconClass(user.status)"
+                      class="!text-lg mr-1"
+                    >
+                      {{ getStatusIcon(user.status) }}
+                    </mat-icon>
+                    <span class="text-sm">{{
+                      getStatusText(user.status)
+                    }}</span>
+                  </div>
+                  @if (user.canlogin) {
+                    <div class="text-xs text-green-600 mt-1">Can Login</div>
+                  }
+                </td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="font-semibold !text-sm"
+                >
+                  Actions
+                </th>
+                <td mat-cell *matCellDef="let user" class="!py-2">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="editUser(user)"
+                    matTooltip="Edit user"
+                    class="!w-8 !h-8"
+                  >
+                    <mat-icon class="!text-lg">edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="deleteUser(user.id)"
+                    matTooltip="Delete user"
+                    class="!w-8 !h-8"
+                  >
+                    <mat-icon class="!text-lg">delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="[
+                  'select',
+                  'employeeid',
+                  'bloodgroup',
+                  'department',
+                  'identity',
+                  'status',
+                  'actions',
+                ]"
+                class="!h-10"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="
+                  let row;
+                  columns: [
+                    'select',
+                    'employeeid',
+                    'bloodgroup',
+                    'department',
+                    'identity',
+                    'status',
+                    'actions',
+                  ]
+                "
+                class="!h-12"
+              ></tr>
+            </table>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

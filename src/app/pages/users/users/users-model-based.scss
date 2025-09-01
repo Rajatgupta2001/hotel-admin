@@ -1,0 +1,215 @@
+// Users component specific styles
+
+.users-container {
+  .user-card {
+    transition: box-shadow 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+
+    &.status-active {
+      background-color: #4caf50;
+    }
+
+    &.status-inactive {
+      background-color: #ff9800;
+    }
+
+    &.status-deleted {
+      background-color: #9e9e9e;
+    }
+  }
+
+  .blood-group-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e53e3e, #fc8181);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .department-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background-color: #e2e8f0;
+    color: #4a5568;
+  }
+
+  .permission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+
+    .permission-item {
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
+    }
+  }
+
+  .access-control-section {
+    background: linear-gradient(135deg, #f7fafc, #edf2f7);
+    border-left: 4px solid #3182ce;
+  }
+
+  .form-section {
+    margin-bottom: 24px;
+
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-right: 8px;
+        color: #3182ce;
+      }
+    }
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    &.status-active {
+      color: #38a169;
+    }
+
+    &.status-inactive {
+      color: #ed8936;
+    }
+
+    &.status-deleted {
+      color: #a0aec0;
+    }
+  }
+
+  // Mobile responsive adjustments
+  @media (max-width: 768px) {
+    .permission-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .user-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+}
+
+// Table specific styles
+.users-table {
+  .mat-column-select {
+    width: 48px;
+    padding-right: 8px;
+  }
+
+  .mat-column-actions {
+    width: 120px;
+    text-align: right;
+  }
+
+  .user-row {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    &.selected {
+      background-color: rgba(63, 81, 181, 0.08);
+    }
+  }
+}
+
+// Animation classes
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Loading states
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .blood-group-badge,
+  .department-badge {
+    border: 2px solid currentColor;
+  }
+
+  .status-indicator {
+    font-weight: 600;
+  }
+}
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .slide-in,
+  .loading-skeleton {
+    animation: none;
+  }
+
+  .user-card {
+    transition: none;
+  }
+}
