@@ -3499,8 +3499,8 @@ export class RoomTypesComponent implements OnInit {
         },
         {
           colId: 'rooms',
-          minWidth: 120,
-          maxWidth: 250
+          minWidth: 110,
+          maxWidth: 110
         }
       ]
     },
@@ -3790,7 +3790,7 @@ export class RoomTypesComponent implements OnInit {
       {
         headerName: 'Rooms',
         field: 'rooms',
-        width: 150,
+        width: 110,
         editable: false,
         cellRenderer: (params: ICellRendererParams) => {
           const roomCount = params.data.rooms ? params.data.rooms.length : 0;
