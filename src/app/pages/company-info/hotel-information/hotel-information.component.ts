@@ -75,58 +75,63 @@ interface HotelInfoRow {
 
       <!-- Hotel Information Grid -->
       <div class="grid-container">
-        <!-- Basic Hotel Information Section -->
-        <div class="grid-section">
-          <h3 class="section-title">Basic Hotel Information</h3>
-          <ag-grid-angular
-            class="hotel-info-grid ag-theme-material"
-            [gridOptions]="gridOptions"
-            [rowData]="basicInfoData"
-            [columnDefs]="getColumnDefs()"
-            [modules]="modules"
-            [domLayout]="'autoHeight'"
-            (gridReady)="onGridReady($event)"
-            (gridSizeChanged)="onGridSizeChanged($event)"
-            (cellValueChanged)="onCellValueChanged($event)"
-            style="width: 100%; height: auto; min-height: 300px;"
-          >
-          </ag-grid-angular>
-        </div>
+        <div class="outer-grid">
+          <!-- Left Column: Basic Hotel Information -->
+          <div class="left-col">
+            <div class="grid-section">
+              <h3 class="section-title">Basic Hotel Information</h3>
+              <ag-grid-angular
+                class="hotel-info-grid ag-theme-material"
+                [gridOptions]="gridOptions"
+                [rowData]="basicInfoData"
+                [columnDefs]="getColumnDefs()"
+                [modules]="modules"
+                [domLayout]="'autoHeight'"
+                (gridReady)="onGridReady($event)"
+                (gridSizeChanged)="onGridSizeChanged($event)"
+                (cellValueChanged)="onCellValueChanged($event)"
+                style="width: 100%; height: auto; min-height: 300px;"
+              >
+              </ag-grid-angular>
+            </div>
+          </div>
 
-        <!-- Billing Address Section -->
-        <div class="grid-section">
-          <h3 class="section-title">Main Billing Address:</h3>
-          <ag-grid-angular
-            class="hotel-info-grid ag-theme-material"
-            [gridOptions]="gridOptions"
-            [rowData]="billingAddressData"
-            [columnDefs]="getColumnDefs()"
-            [modules]="modules"
-            [domLayout]="'autoHeight'"
-            (gridReady)="onGridReady($event)"
-            (gridSizeChanged)="onGridSizeChanged($event)"
-            (cellValueChanged)="onCellValueChanged($event)"
-            style="width: 100%; height: auto; min-height: 250px;"
-          >
-          </ag-grid-angular>
-        </div>
+          <!-- Right Column: Two equal rows -->
+          <div class="right-col">
+            <div class="grid-section half-grid">
+              <h3 class="section-title">Main Billing Address</h3>
+              <ag-grid-angular
+                class="hotel-info-grid ag-theme-material"
+                [gridOptions]="gridOptions"
+                [rowData]="billingAddressData"
+                [columnDefs]="getColumnDefs()"
+                [modules]="modules"
+                [domLayout]="'autoHeight'"
+                (gridReady)="onGridReady($event)"
+                (gridSizeChanged)="onGridSizeChanged($event)"
+                (cellValueChanged)="onCellValueChanged($event)"
+                style="width: 100%; height: auto;"
+              >
+              </ag-grid-angular>
+            </div>
 
-        <!-- Main Billing Contact Section -->
-        <div class="grid-section">
-          <h3 class="section-title">Main Billing Contact:</h3>
-          <ag-grid-angular
-            class="hotel-info-grid ag-theme-material"
-            [gridOptions]="gridOptions"
-            [rowData]="billingContactData"
-            [columnDefs]="getColumnDefs()"
-            [modules]="modules"
-            [domLayout]="'autoHeight'"
-            (gridReady)="onGridReady($event)"
-            (gridSizeChanged)="onGridSizeChanged($event)"
-            (cellValueChanged)="onCellValueChanged($event)"
-            style="width: 100%; height: auto; min-height: 250px;"
-          >
-          </ag-grid-angular>
+            <div class="grid-section half-grid">
+              <h3 class="section-title">Main Billing Contact</h3>
+              <ag-grid-angular
+                class="hotel-info-grid ag-theme-material"
+                [gridOptions]="gridOptions"
+                [rowData]="billingContactData"
+                [columnDefs]="getColumnDefs()"
+                [modules]="modules"
+                [domLayout]="'autoHeight'"
+                (gridReady)="onGridReady($event)"
+                (gridSizeChanged)="onGridSizeChanged($event)"
+                (cellValueChanged)="onCellValueChanged($event)"
+                style="width: 100%; height: auto;"
+              >
+              </ag-grid-angular>
+            </div>
+          </div>
         </div>
 
         <!-- Plain note under the last grid (not part of any grid) -->
@@ -228,6 +233,11 @@ interface HotelInfoRow {
         margin-bottom: 32px;
       }
 
+      /* In the right column, don't add extra bottom margin between stacked sections */
+      .right-col .grid-section {
+        margin-bottom: 0;
+      }
+
       .section-title {
         font-size: 18px;
         font-weight: 600;
@@ -293,14 +303,25 @@ interface HotelInfoRow {
       ::ng-deep .ag-theme-material .ag-cell {
         border-bottom: 1px solid #f3f4f6;
         border-right: 1px solid #f3f4f6;
-        padding: 2px 4px; /* scaled padding */
+        padding: 0; /* let input use full width/height */
         line-height: 1.2;
         height: 25px; /* match row height */
         min-height: 25px;
         max-height: 25px;
         display: flex;
-        align-items: center;
+        align-items: stretch;
         overflow: visible;
+      }
+
+      ::ng-deep .ag-theme-material .ag-cell > input,
+      ::ng-deep .ag-theme-material .ag-cell > select,
+      ::ng-deep .ag-theme-material .ag-cell > textarea {
+        width: 100% !important;
+        height: 100% !important;
+        padding: 2px 4px;
+        border: 1px solid #e5e7eb;
+        border-radius: 3px;
+        box-sizing: border-box;
       }
 
       ::ng-deep .ag-theme-material .ag-row {
@@ -409,6 +430,47 @@ interface HotelInfoRow {
           max-width: 300px;
         }
       }
+        /* Outer two-column layout */
+        .outer-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          align-items: stretch;
+        }
+
+        .left-col,
+        .right-col {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          height: 100%;
+        }
+
+        .right-col {
+          /* Stack rows sized to content to avoid blank space */
+          display: grid;
+          grid-template-rows: auto auto;
+          gap: 8px; /* tighter space between sections */
+        }
+
+        /* Slightly tighter heading spacing in right column */
+        .right-col .section-title {
+          margin: 0 0 8px 0;
+        }
+
+        .half-grid {
+          min-height: 0; /* allow grid children to shrink */
+        }
+
+        /* Responsive: stack columns on narrow screens */
+        @media (max-width: 900px) {
+          .outer-grid {
+            grid-template-columns: 1fr;
+          }
+          .right-col {
+            grid-template-rows: auto auto;
+          }
+        }
     `,
   ],
 })
@@ -896,7 +958,7 @@ export class HotelInformationComponent implements OnInit {
           color: '#374151',
           padding: '6px 10px',
           background: '#f8f9fa',
-          fontSize: '9px', // reduced ~30%
+          fontSize: '12px',
         },
         suppressSizeToFit: true,
       },
@@ -916,7 +978,7 @@ export class HotelInformationComponent implements OnInit {
             }</span>`;
           }
           // Styles shared by inputs to match reduced row height
-          const baseInputStyles = 'box-sizing:border-box;width:100%;height:100%;padding:2px 4px;border:1px solid #e5e7eb;border-radius:3px;background:#fff;font-size:9px;line-height:1.2;outline:none;';
+          const baseInputStyles = 'box-sizing:border-box;width:100%;height:100%;padding:2px 4px;margin:0;border:1px solid #e5e7eb;border-radius:3px;background:#fff;font-size:9px;line-height:1.2;outline:none;';
 
           // For checkbox, render a real checkbox that toggles value
           if (data.fieldType === 'checkbox') {
