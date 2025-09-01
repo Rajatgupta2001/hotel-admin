@@ -2306,8 +2306,8 @@ html body mat-form-field.mat-mdc-form-field:has(textarea) {
 
 /* AG Grid cell styling */
 .ag-theme-material .ag-cell {
-  padding: 0 16px !important;
-  font-size: 14px !important;
+  padding: 0 5px !important;
+  font-size: 11px !important;
   line-height: 1.4 !important;
   color: var(--md-sys-color-on-surface) !important;
   border-right: none !important;
@@ -2546,6 +2546,11 @@ html body mat-form-field.mat-mdc-form-field:has(textarea) {
   .ag-theme-material .ag-header-cell {
     padding: 0 12px !important;
   }
+
+  /* Keep cell padding consistent across sizes */
+  .ag-theme-material .ag-cell {
+    padding: 0 5px !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2558,5 +2563,10 @@ html body mat-form-field.mat-mdc-form-field:has(textarea) {
   .ag-theme-material .ag-cell,
   .ag-theme-material .ag-header-cell {
     padding: 0 8px !important;
+  }
+
+  /* Keep cell padding consistent across sizes */
+  .ag-theme-material .ag-cell {
+    padding: 0 5px !important;
   }
 }

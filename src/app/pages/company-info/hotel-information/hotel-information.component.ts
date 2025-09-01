@@ -952,13 +952,13 @@ export class HotelInformationComponent implements OnInit {
       {
   headerName: '',
         field: 'fieldName',
-        width: 300,
+  width: 175,
         cellStyle: {
           fontWeight: '600',
           color: '#374151',
           padding: '6px 10px',
           background: '#f8f9fa',
-          fontSize: '12px',
+          fontSize: '9px', // reduced ~30%
         },
         suppressSizeToFit: true,
       },
