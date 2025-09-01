@@ -21,92 +21,7 @@ import {
 } from 'ag-grid-community';
 import { StorageService } from '../../../services/storage.service';
 
-// Custom Cell Renderers following room types pattern
-class EditableCellRenderer {
-  eGui!: HTMLElement;
-
-  init(params: ICellRendererParams) {
-    this.eGui = document.createElement('div');
-    this.eGui.style.cssText = `
-      padding: 8px 12px;
-      background: #e3f2fd;
-      border: 1px solid #2196f3;
-      border-radius: 4px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      cursor: text;
-      transition: all 0.2s ease;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      color: #1565c0;
-      font-weight: 500;
-    `;
-    this.eGui.innerHTML = params.value ? String(params.value) : '';
-
-    this.eGui.addEventListener('mouseenter', () => {
-      this.eGui.style.background = '#bbdefb';
-      this.eGui.style.borderColor = '#1976d2';
-    });
-
-    this.eGui.addEventListener('mouseleave', () => {
-      this.eGui.style.background = '#e3f2fd';
-      this.eGui.style.borderColor = '#2196f3';
-    });
-  }
-
-  getGui() {
-    return this.eGui;
-  }
-}
-
-class CheckboxCellRenderer {
-  eGui!: HTMLElement;
-  private params!: ICellRendererParams;
-
-  init(params: ICellRendererParams) {
-    this.params = params;
-    this.eGui = document.createElement('div');
-    this.eGui.style.cssText = `
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    `;
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked =
-      params.value === true || params.value === 'true' || params.value === 1;
-    checkbox.style.cssText = `
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      accent-color: #2196f3;
-    `;
-
-    checkbox.addEventListener('change', () => {
-      // Update the data model directly
-      const rowData = params.data as HotelInfoRow;
-      rowData.fieldValue = checkbox.checked;
-
-      // Manually trigger onCellValueChanged
-      if (params.api) {
-        params.api.refreshCells({ rowNodes: [params.node!] });
-      }
-    });
-
-    this.eGui.appendChild(checkbox);
-  }
-
-  getGui() {
-    return this.eGui;
-  }
-
-  refresh(): boolean {
-    return false;
-  }
-}
+// No custom renderers needed; use built-in editors/renderers for reliability
 
 // Hotel Data Interface for storage
 interface SavedHotelData {
@@ -212,6 +127,11 @@ interface HotelInfoRow {
             style="width: 100%; height: auto; min-height: 250px;"
           >
           </ag-grid-angular>
+        </div>
+
+        <!-- Plain note under the last grid (not part of any grid) -->
+        <div class="note-text">
+          Note: Fields marked with an * are compulsory
         </div>
 
         <!-- Action Buttons -->
@@ -325,7 +245,15 @@ interface HotelInfoRow {
         font-family: 'Roboto', sans-serif;
       }
 
-      /* AG Grid Theme Customization - Following room types pattern */
+      /* Plain note under grids */
+      .note-text {
+        margin: 12px 2px 0 2px;
+        color: #6b7280;
+        font-style: italic;
+        font-size: 12px;
+      }
+
+  /* AG Grid Theme Customization - scaled down content; headers hidden */
       ::ng-deep .ag-theme-material {
         --ag-border-color: #e5e7eb;
         --ag-header-background-color: #f9fafb;
@@ -335,19 +263,19 @@ interface HotelInfoRow {
         --ag-row-hover-color: #e0e7ff;
         --ag-selected-row-background-color: #dbeafe;
         --ag-font-family: 'Roboto', sans-serif;
-        --ag-font-size: 13px;
-        --ag-row-height: 36px;
-        --ag-header-height: 32px;
-        --ag-list-item-height: 36px;
+        /* Reduce base font-size and row/list heights by ~30% */
+        --ag-font-size: 9px; /* ~70% of 13px */
+        --ag-row-height: 25px; /* ~70% of 36px */
+        --ag-header-height: 0px; /* hide header */
+        --ag-list-item-height: 25px;
       }
 
       ::ng-deep .ag-theme-material .ag-header {
-        font-weight: 600;
-        background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
-        border-bottom: 2px solid #6366f1;
-        height: 32px;
-        min-height: 32px;
-        max-height: 32px;
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        border-bottom: none !important;
       }
 
       ::ng-deep .ag-theme-material .ag-header-cell {
@@ -358,18 +286,18 @@ interface HotelInfoRow {
         justify-content: flex-start;
         height: 32px;
         line-height: 1.1;
-        font-size: 13px;
+        font-size: 13px; /* keep header font size same */
         font-weight: 600;
       }
 
       ::ng-deep .ag-theme-material .ag-cell {
         border-bottom: 1px solid #f3f4f6;
         border-right: 1px solid #f3f4f6;
-        padding: 4px 6px;
-        line-height: 1.3;
-        height: 36px;
-        min-height: 36px;
-        max-height: 36px;
+        padding: 2px 4px; /* scaled padding */
+        line-height: 1.2;
+        height: 25px; /* match row height */
+        min-height: 25px;
+        max-height: 25px;
         display: flex;
         align-items: center;
         overflow: visible;
@@ -377,9 +305,9 @@ interface HotelInfoRow {
 
       ::ng-deep .ag-theme-material .ag-row {
         transition: background-color 0.2s ease;
-        height: 36px;
-        min-height: 36px;
-        max-height: 36px;
+        height: 25px;
+        min-height: 25px;
+        max-height: 25px;
         border-bottom: 1px solid #e5e7eb;
       }
 
@@ -498,11 +426,11 @@ export class HotelInformationComponent implements OnInit {
 
   // AG Grid configuration
   gridOptions = {
-    theme: 'legacy' as const,
-    rowHeight: 36,
-    headerHeight: 32,
+  theme: 'legacy' as const,
+  rowHeight: 25, // reduced ~30%
+    headerHeight: 0,
     modules: this.modules,
-    defaultColDef: {
+  defaultColDef: {
       sortable: false,
       filter: false,
       resizable: true,
@@ -543,13 +471,48 @@ export class HotelInformationComponent implements OnInit {
     this.loadData();
   }
 
+  // Sanitize helper: remove static demo values and coerce invalid types
+  private sanitizeRows(rows: HotelInfoRow[]): HotelInfoRow[] {
+    const sampleValues = new Set<string>([
+      'Marriott',
+      '2023, 46TH',
+      'India',
+      'Select State',
+      'New Delhi',
+      '110092',
+      '+918851696602',
+      'My Designation',
+      'rajat.gupta@hotelogix.com',
+      'Mr.',
+      'Select Hotel Category',
+      'Choose file',
+    ]);
+    return rows.map((row) => {
+      const r: HotelInfoRow = { ...row };
+      if (r.fieldType === 'checkbox') return r; // keep boolean
+  const v = r.fieldValue;
+  // Coerce non-string (boolean/number/null) to '' for non-checkbox fields
+  let val: string = typeof v === 'string' ? v : '';
+      // Remove known sample values
+      if (sampleValues.has((val || '').trim())) {
+        val = '';
+      }
+      // For dropdown, ensure value is valid option
+      if (r.fieldType === 'dropdown' && r.options) {
+        if (!r.options.includes(val)) val = '';
+      }
+      r.fieldValue = val;
+      return r;
+    });
+  }
+
   initializeData(): void {
     // Basic Hotel Information (matching the image exactly)
     this.basicInfoData = [
       {
         id: 'hotelname',
         fieldName: 'Name of the Hotel/Property*',
-        fieldValue: 'Marriott',
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter hotel name',
         required: true,
@@ -569,7 +532,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'companylogo',
         fieldName: 'Upload Company Logo',
-        fieldValue: 'Choose file',
+  fieldValue: '',
         fieldType: 'file',
         required: false,
         editable: false,
@@ -578,7 +541,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'uploadphoto',
         fieldName: 'Upload Photos',
-        fieldValue: 'Choose file',
+  fieldValue: '',
         fieldType: 'file',
         required: false,
         editable: false,
@@ -587,7 +550,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'address',
         fieldName: 'Address*',
-        fieldValue: '2023, 46TH',
+  fieldValue: '',
         fieldType: 'textarea',
         placeholder: 'Enter address',
         required: true,
@@ -597,7 +560,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'country',
         fieldName: 'Country*',
-        fieldValue: 'India',
+  fieldValue: '',
         fieldType: 'dropdown',
         options: [
           'India',
@@ -613,16 +576,9 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'state',
         fieldName: 'State*',
-        fieldValue: 'Select State',
+  fieldValue: '',
         fieldType: 'dropdown',
-        options: [
-          'Select State',
-          'Maharashtra',
-          'Delhi',
-          'Karnataka',
-          'Tamil Nadu',
-          'Gujarat',
-        ],
+  options: ['Maharashtra', 'Delhi', 'Karnataka', 'Tamil Nadu', 'Gujarat'],
         required: true,
         editable: true,
         section: 'basic',
@@ -630,7 +586,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'city',
         fieldName: 'City*',
-        fieldValue: 'New Delhi',
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter city',
         required: true,
@@ -640,7 +596,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'zipcode',
         fieldName: 'Zip Code*',
-        fieldValue: '110092',
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter zip code',
         required: true,
@@ -650,7 +606,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'phone',
         fieldName: 'Phone*',
-        fieldValue: '+918979714219',
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter phone number',
         required: true,
@@ -660,16 +616,9 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'hotelcategory',
         fieldName: 'Hotel Category',
-        fieldValue: 'Select Hotel Category',
+  fieldValue: '',
         fieldType: 'dropdown',
-        options: [
-          'Select Hotel Category',
-          '5 Star',
-          '4 Star',
-          '3 Star',
-          '2 Star',
-          'Budget',
-        ],
+  options: ['5 Star', '4 Star', '3 Star', '2 Star', 'Budget'],
         required: false,
         editable: true,
         section: 'basic',
@@ -677,8 +626,8 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'fax',
         fieldName: 'Fax',
-        fieldValue: '',
-        fieldType: 'text',
+  fieldValue: '',
+  fieldType: 'text',
         placeholder: 'Enter fax number',
         required: false,
         editable: true,
@@ -687,8 +636,8 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'website',
         fieldName: 'Website Address',
-        fieldValue: '',
-        fieldType: 'text',
+  fieldValue: '',
+  fieldType: 'text',
         placeholder: 'Enter website URL',
         required: false,
         editable: true,
@@ -697,8 +646,8 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'email',
         fieldName: 'Email Address',
-        fieldValue: '',
-        fieldType: 'text',
+  fieldValue: '',
+  fieldType: 'text',
         placeholder: 'Enter email address',
         required: false,
         editable: true,
@@ -717,7 +666,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'rooms',
         fieldName: 'No. of Rooms',
-        fieldValue: 60,
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter number of rooms',
         required: false,
@@ -760,7 +709,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_address1',
         fieldName: 'Address Line 1*',
-        fieldValue: '2023, 46TH',
+  fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter address line 1',
         required: true,
@@ -780,7 +729,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_country',
         fieldName: 'Country*',
-        fieldValue: 'India',
+        fieldValue: '',
         fieldType: 'dropdown',
         options: [
           'India',
@@ -796,10 +745,9 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_state',
         fieldName: 'State*',
-        fieldValue: 'Select State',
+        fieldValue: '',
         fieldType: 'dropdown',
         options: [
-          'Select State',
           'Maharashtra',
           'Delhi',
           'Karnataka',
@@ -813,7 +761,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_city',
         fieldName: 'City*',
-        fieldValue: 'New Delhi',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter city',
         required: true,
@@ -823,7 +771,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_zipcode',
         fieldName: 'Zip Code*',
-        fieldValue: '110092',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter zip code',
         required: true,
@@ -833,7 +781,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'billing_phone',
         fieldName: 'Office Phone*',
-        fieldValue: '+918979714219',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter office phone',
         required: true,
@@ -857,7 +805,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'salutation',
         fieldName: 'Salutation*',
-        fieldValue: 'Mr.',
+        fieldValue: '',
         fieldType: 'dropdown',
         options: ['Mr.', 'Ms.', 'Mrs.', 'Dr.'],
         required: true,
@@ -867,7 +815,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'first_name',
         fieldName: 'First Name*',
-        fieldValue: 'Mukul',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter first name',
         required: true,
@@ -877,7 +825,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'last_name',
         fieldName: 'Last Name*',
-        fieldValue: 'Chaudhary',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter last name',
         required: true,
@@ -887,7 +835,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'designation',
         fieldName: 'Designation*',
-        fieldValue: 'My Designation',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter designation',
         required: true,
@@ -897,7 +845,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'office_phone',
         fieldName: 'Office Phone*',
-        fieldValue: '+918979714219',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter office phone',
         required: true,
@@ -917,7 +865,7 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'email_id',
         fieldName: 'Email Id*',
-        fieldValue: 'mukul.chaudhary@hotelogix.com',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter email address',
         required: true,
@@ -927,20 +875,11 @@ export class HotelInformationComponent implements OnInit {
       {
         id: 'mobile',
         fieldName: 'Mobile',
-        fieldValue: '+918979714219',
+        fieldValue: '',
         fieldType: 'text',
         placeholder: 'Enter mobile number',
         required: false,
         editable: true,
-        section: 'contact',
-      },
-      {
-        id: 'company_note',
-        fieldName: 'Note: Fields marked with an * are compulsory',
-        fieldValue: '',
-        fieldType: 'text',
-        required: false,
-        editable: false,
         section: 'contact',
       },
     ];
@@ -949,7 +888,7 @@ export class HotelInformationComponent implements OnInit {
   getColumnDefs(): ColDef[] {
     return [
       {
-        headerName: 'Field Name',
+  headerName: '',
         field: 'fieldName',
         width: 300,
         cellStyle: {
@@ -957,64 +896,112 @@ export class HotelInformationComponent implements OnInit {
           color: '#374151',
           padding: '6px 10px',
           background: '#f8f9fa',
-          fontSize: '13px',
+          fontSize: '9px', // reduced ~30%
         },
         suppressSizeToFit: true,
       },
       {
-        headerName: 'Value',
+  headerName: '',
         field: 'fieldValue',
         flex: 1,
-        editable: (params) =>
-          params.data.editable && params.data.fieldType !== 'checkbox',
+        // Renderer will provide inline inputs; disable ag-Grid editors
+        editable: () => false,
         cellRenderer: (params: ICellRendererParams) => {
           const data = params.data as HotelInfoRow;
-
+          // For non-editable rows, show placeholder/greyed text
           if (!data.editable) {
-            return `<span style="
-              color: #6b7280; 
-              font-style: italic;
-              padding: 6px 10px;
-              background: #f8f9fa;
-              border-radius: 4px;
-              display: flex;
-              align-items: center;
-              font-size: 13px;
-            ">${params.value || data.placeholder || ''}</span>`;
+            const text = params.value ?? data.placeholder ?? '';
+            return `<span style="color:#6b7280;font-style:italic;padding:2px 4px;">${
+              String(text)
+            }</span>`;
           }
+          // Styles shared by inputs to match reduced row height
+          const baseInputStyles = 'box-sizing:border-box;width:100%;height:100%;padding:2px 4px;border:1px solid #e5e7eb;border-radius:3px;background:#fff;font-size:9px;line-height:1.2;outline:none;';
 
-          // For checkbox fields, use checkbox renderer
+          // For checkbox, render a real checkbox that toggles value
           if (data.fieldType === 'checkbox') {
-            return CheckboxCellRenderer;
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'flex';
+            wrapper.style.alignItems = 'center';
+            wrapper.style.justifyContent = 'center';
+            wrapper.style.height = '100%';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            const v = params.value;
+            checkbox.checked = v === true || v === 'true' || v === 1;
+            checkbox.addEventListener('change', () => {
+              // let ag-Grid handle value updates to trigger events/storage
+              if (typeof params.setValue === 'function') {
+                params.setValue(checkbox.checked);
+              } else if (params.data) {
+                (params.data as HotelInfoRow).fieldValue = checkbox.checked;
+              }
+            });
+            wrapper.appendChild(checkbox);
+            return wrapper;
           }
-
-          // For editable cells, use the EditableCellRenderer
-          return EditableCellRenderer;
-        },
-        cellEditor: (params: ICellRendererParams) => {
-          const data = params.data as HotelInfoRow;
-          if (data.fieldType === 'dropdown') {
-            return 'agSelectCellEditor';
-          }
-          if (data.fieldType === 'textarea') {
-            return 'agLargeTextCellEditor';
-          }
-          return 'agTextCellEditor';
-        },
-        cellEditorParams: (params: ICellRendererParams) => {
-          const data = params.data as HotelInfoRow;
+          // For dropdown, render a select input
           if (data.fieldType === 'dropdown' && data.options) {
-            return { values: data.options };
+            const select = document.createElement('select');
+            select.setAttribute('style', baseInputStyles);
+            const opts = data.options as string[];
+            // Add placeholder option when empty
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = data.placeholder || 'Select …';
+            placeholder.disabled = false;
+            placeholder.selected = (params.value == null || params.value === '');
+            select.appendChild(placeholder);
+            opts.forEach((opt) => {
+              const optionEl = document.createElement('option');
+              optionEl.value = opt;
+              optionEl.textContent = opt;
+              if (String(params.value ?? '') === opt) optionEl.selected = true;
+              select.appendChild(optionEl);
+            });
+            select.addEventListener('change', () => {
+              if (typeof params.setValue === 'function') {
+                params.setValue(select.value);
+              } else if (params.data) {
+                (params.data as HotelInfoRow).fieldValue = select.value;
+              }
+            });
+            return select;
           }
+          // For textarea, render a single-row textarea with placeholder
           if (data.fieldType === 'textarea') {
-            return {
-              maxLength: 500,
-              rows: 4,
-              cols: 50,
-            };
+            const ta = document.createElement('textarea');
+            ta.setAttribute('rows', '2');
+            ta.setAttribute('style', baseInputStyles + 'resize:vertical;');
+            if (data.placeholder) ta.placeholder = data.placeholder;
+            ta.value = params.value != null ? String(params.value) : '';
+            ta.addEventListener('input', () => {
+              if (typeof params.setValue === 'function') {
+                params.setValue(ta.value);
+              } else if (params.data) {
+                (params.data as HotelInfoRow).fieldValue = ta.value;
+              }
+            });
+            return ta;
           }
-          return {};
+          // Default to a text input with placeholder
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.setAttribute('style', baseInputStyles);
+          if (data.placeholder) input.placeholder = data.placeholder;
+          input.value = params.value != null ? String(params.value) : '';
+          input.addEventListener('input', () => {
+            if (typeof params.setValue === 'function') {
+              params.setValue(input.value);
+            } else if (params.data) {
+              (params.data as HotelInfoRow).fieldValue = input.value;
+            }
+          });
+          return input;
+          // Otherwise use default cell content
+          // return undefined;
         },
+        // No cellEditor needed; renderer handles edits inline
         suppressSizeToFit: true,
       },
     ];
@@ -1082,11 +1069,18 @@ export class HotelInformationComponent implements OnInit {
       'hotelInformation',
     ) as SavedHotelData;
     if (savedData) {
-      if (savedData.basicInfo) this.basicInfoData = savedData.basicInfo;
+      if (savedData.basicInfo)
+        this.basicInfoData = this.sanitizeRows(savedData.basicInfo);
       if (savedData.billingAddress)
-        this.billingAddressData = savedData.billingAddress;
+        this.billingAddressData = this.sanitizeRows(
+          savedData.billingAddress,
+        );
       if (savedData.billingContact)
-        this.billingContactData = savedData.billingContact;
+        this.billingContactData = this.sanitizeRows(
+          savedData.billingContact.filter((row) => row.id !== 'company_note'),
+        );
+      // Persist sanitized data back
+      this.saveData();
     }
   }
 

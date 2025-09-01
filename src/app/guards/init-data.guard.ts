@@ -2,7 +2,6 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { HotelStore } from '../services/hotel-store.service';
-import { SAMPLE_HOTEL_DATA } from '../models/sample-data';
 
 /**
  * Guard to ensure a single JSON object (HotelData) exists in localStorage.
@@ -11,15 +10,11 @@ import { SAMPLE_HOTEL_DATA } from '../models/sample-data';
 export const initDataGuard: CanActivateFn = () => {
   const platformId = inject(PLATFORM_ID);
   const isBrowser = isPlatformBrowser(platformId);
-  const store = inject(HotelStore);
+  inject(HotelStore);
 
   if (isBrowser) {
-    const key = 'hotel-admin-hotel-data';
     try {
-      const existing = localStorage.getItem(key);
-      if (!existing) {
-        store.replaceAll(SAMPLE_HOTEL_DATA);
-      }
+      // No-op: do not seed any static/sample data automatically
     } catch {
       // If localStorage is not accessible, still allow nav
     }
